@@ -3,43 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <title>Gabriel Solano De Sixto</title>
+  <!-- CSS Files-->
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="./css/colors.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 <body>
-  <!--Nav Menu-->
-  <div class="container">
-    <div class="nav-logo">
-      <p class="nav-name">
-        <img src="./img/_eec00188-0a9b-491c-af89-2416eae2ffeb.jpeg" alt="">
-      </p>
-    </div>
-    <div class="nav-menu" id="myNavMenu">
-      <ul class="nav_menu_list">
-        <li class="nav_list">
-          <a href="#home" class="nav-link active-link">Home</a>
-          <div class="circle"></div>
-        </li>
-        <li class="nav_list">
-          <a href="#about" class="nav-link active-link">About</a>
-          <div class="circle"></div>
-        </li>
-        <li class="nav_list">
-          <a href="#projects" class="nav-link active-link">Projects</a>
-          <div class="circle"></div>
-        </li>
-        <li class="nav_list">
-          <a href="#contact" class="nav-link active-link"> Contact</a>
-          <div class="circle"></div>
-        </li>
-      </ul>
-    </div>
-    <!--Dark mode-->
-    <div class="mode">
-      <div class="moom-sun" id="toogle-switch">
-
+  <!-- Main Container Start-->
+   <div class="main-container">
+    <!-- Aside Start -->
+     <div class="aside">
+      <div class="logo">
+        <a href="#"><!--<span>g</span>abriel-->
+        <img src="./img/logo.jpeg" alt="logo" class="img-logo"></a>
       </div>
-    </div>
-  </div>
+      <div class="nav-toggler">
+        <span></span>
+      </div>
+      <ul class="nav">
+        <li><a href="#" class="active" ><i class="fa fa-home"></i> Home </a></li>
+        <li><a href="#" ><i class="fa fa-user"></i> About </a></li>
+        <li><a href="#" ><i class="fa fa-list"></i> Services </a></li>
+        <li><a href="#" ><i class="fa fa-briefcase"></i> Portfolio </a></li>
+        <li><a href="#" ><i class="fa fa-comments"></i> Contact </a></li>
+      </ul>
+     </div>
+     <!-- Aside End-->
+     <!-- Main Content Start-->
+      <div class="main-content">
+        <!-- Home Section Start -->
+         <section class="home section">
+          <div class="container">
+            <div class="row">
+              <div class="home-info padd-15">
+                <h3 class="hello">Hello, my name is <span class="name">Gabriel Solano</span></h3>
+                <h3 class="my-profession">I'M  a <span class="typing">Web Developer</span></h3>
+                <p>I'm a web Designer with ............ Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum pariatur, sequi similique nostrum necessitatibus aut illo eos nisi facere repellendus perferendis fugiat delectus eaque at magni accusantium incidunt voluptas modi!</p>
+                <a href="#contact" class="btn hire-me">Hire me</a>
+              </div>
+              <div class="home-img">
+                <img src="./img/yo.jpg" alt="yo">
+              </div>
+            </div>
+          </div>
+         </section>
+         <!-- Home Section End-->
+      </div>
+      <!-- Main Content End--> 
+   </div>
+   <!-- Main Container End-->
+ 
+  <!-- JS Files-->
+  <script src="./js/app.js"></script>
 </body>
 </html>
