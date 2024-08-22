@@ -16,9 +16,7 @@ Este repositorio contiene el código fuente de mi portfolio web personal. El obj
 - **HTML5**: Estructura semántica y accesible.
 - **CSS3**: Estilizado con Flexbox, Grid y animaciones.
 - **JavaScript**: Interactividad y funcionalidades dinámicas.
-- **React**: Construcción de la interfaz de usuario como una SPA.
-- **Node.js y Express**: Backend para manejar el formulario de contacto.
-- **MongoDB**: Base de datos para almacenar entradas del blog y mensajes de contacto.
+
 
 ## Instalación y Ejecución
 
