@@ -4,6 +4,7 @@ import Badge from "@/components/Badge.astro"
 import LinkedInIcon from "@/components/icons/LinkedIn.astro"
 import MailIcon from "@/components/icons/Mail.astro"
 import SocialPill from "@/components/SocialPill.astro"
+import Pdf from "@/components/icons/Pdf.astro"
 import { getLangFromUrl, useTranslations } from "@/i18n/utils"
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang);
@@ -17,7 +18,7 @@ const t = useTranslations(lang);
       alt={personalImageAlt}
     />
     <a
-      href="https://linkedin.com/in/midudev"
+      href="https://github.com/GabrielDeSixto"
       target="_blank"
       rel="noopener"
       class="flex items-center transition md:justify-center md:hover:scale-105"
@@ -36,13 +37,17 @@ const t = useTranslations(lang);
   >
   </p>
   <nav class="flex flex-wrap gap-4 mt-8">
-    <SocialPill href="mailto:miduga@gmail.com">
+    <SocialPill href="mailto:gabrielsolanodesixto@gmail.com">
       <MailIcon class="size-4" />
       {t('hero.mail')}
     </SocialPill>
-    <SocialPill href="https://linkedin.com/in/midudev">
+    <SocialPill href="https://www.linkedin.com/in/gabriel-solano-de-sixto/">
       <LinkedInIcon class="size-4" />
       {t('hero.linkedin')}
+    </SocialPill>
+    <SocialPill href="https://drive.google.com/file/d/1BWtoyHttQKXC6WyUFp6MUeUtr57306yt/view?usp=sharing">
+      <Pdf class="size-4" />
+      {t('hero.cv')}
     </SocialPill>
   </nav>
 </div>
