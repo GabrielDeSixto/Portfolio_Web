@@ -7,7 +7,7 @@ export const languages = {
 
   export const ui = {
     es: {
-      'layout.title': 'Porfolio de midudev - Desarrollador y Programador Web con 15 años de experiencia',
+      'layout.title': 'Desarrollador y Programador Web',
       'layout.description': 'Contrata a midudev para crear tu aplicación web o móvil. Desarrollador Web y Creador de Contenido. Especializado en crear aplicaciones únicas.',
       'nav.home':'Experiencia',
       'nav.projects':'Proyectos',
@@ -20,8 +20,9 @@ export const languages = {
       'hero.linkedin': 'LinkedIn',
       'exp.title': 'Experiencia laboral',
       'projects.title': 'Proyectos',
+      'technologies.title':'Tecnologias',
       'about.title': 'Sobre mí',
-      'about.bio': `<p>Me llamo Miguel Ángel pero mis amigos me llaman midu. Empecé en la programación con un Amstrad, tenía 10 años. Actualmente estoy <strong>liderando equipos de desarrollo en multinacionales</strong>.</p><p>Algunos de mis éxitos incluyen <strong>colaborar con Mozilla para el desarrollo de las primeras apps en su sistema FirefoxOS</strong>. Aunque hoy está desaparecido fue un gran avance en el mundo deldesarrollo web.</p><p>Como creador de contenido, <strong>cuento con el canal de habla hispana más visto del mundo en la categoría de <em class="italic">Software & Game Development</em> en Twitch</strong>. Mi objetivo es mejorar la empleabilidad de la comunidad hispana y el acceso a contenido de calidad.</p>`,
+      'about.bio': `<p>Me llamo Gabriel pero mis amigos me llaman Gabo. Empecé en la programación desde secundaria, tenía 10 años. Actualmente estoy <strong>liderando equipos de desarrollo en multinacionales</strong>.</p><p>Algunos de mis éxitos incluyen <strong>colaborar con Mozilla para el desarrollo de las primeras apps en su sistema FirefoxOS</strong>. Aunque hoy está desaparecido fue un gran avance en el mundo deldesarrollo web.</p><p>Como creador de contenido, <strong>cuento con el canal de habla hispana más visto del mundo en la categoría de <em class="italic">Software & Game Development</em> en Twitch</strong>. Mi objetivo es mejorar la empleabilidad de la comunidad hispana y el acceso a contenido de calidad.</p>`,
       'footer.rights': 'Casi todos los derechos reservados',
       exp: [
         {
@@ -58,7 +59,7 @@ export const languages = {
       ]
     },
     en: {
-      'layout.title' : `Midudev's Portfolio - Web Developer and Programmer with 15 years of experience`,
+      'layout.title' : ` Web Developer and Programmer`,
       'layout.description': 'Hire Midudev to build your web or mobile application. Web Developer and Content Creator. Specialized in creating unique applications.',
       'nav.home':'Experience',
       'nav.projects':'Projects',
@@ -70,6 +71,7 @@ export const languages = {
       'hero.mail': 'Contact me',
       'hero.linkedin': 'LinkedIn',
       'exp.title': 'Professional Experience',
+      'technologies.title':'Technologies',
       'projects.title': 'Projects',
       'about.title': 'About me',
       'about.bio': `<p>My name is Miguel Angel, but my friends call me midu. I started programming with an Amstrad when I was 10 years old. Currently, I'm <strong>leading development teams in multinational companies</strong>.</p><p>Some of my successes include <strong>collaborating with Mozilla on the development of the first apps for their FirefoxOS system</strong>. Although it's now gone, it was a significant advancement in the world of web development.</p><p>As a content creator, <strong>I have the most-watched Spanish-speaking channel in the world in the <em class="italic">Software & Game Development</em> category on Twitch</strong>. My goal is to improve employability within the Spanish-speaking community and provide access to quality content.</p>`,
@@ -112,4 +114,3 @@ export const languages = {
     },
 
   } as const;
-  
