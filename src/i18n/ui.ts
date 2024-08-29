@@ -23,23 +23,31 @@ export const languages = {
       'projects.title': 'Proyectos',
       'technologies.title':'Tecnologias',
       'about.title': 'Sobre mí',
-      'about.bio': `<p>Me llamo Gabriel pero mis amigos me llaman Gabo. Empecé en la programación desde secundaria, tenía 15 años. Actualmente estoy <strong>liderando un equipo de desarrollo para un emprendimiento</strong>.</p><p>Algunos de mis éxitos incluyen <strong>colaborar con OpenPyme para el desarrollo de un orquestador de servidores y automatizar tareas repetitivas</strong>. Hoy está desaparecido fue un gran avance en el mundo deldesarrollo web.</p><p>Como creador de contenido, <strong>cuento con el canal de habla hispana más visto del mundo en la categoría de <em class="italic">Software & Game Development</em> en Twitch</strong>. Mi objetivo es mejorar la empleabilidad de la comunidad hispana y el acceso a contenido de calidad.</p>`,
+      'about.bio': `<p>Me llamo Gabriel pero mis amigos me llaman Gabo. Empecé en la programación desde secundaria, tenía 15 años. Actualmente estoy <strong>liderando un equipo de desarrollo para la creación de una Startup</strong>.</p><p>Algunos de mis éxitos incluyen <strong>colaborar con OpenPyme para el desarrollo de un orquestador de servidores y automatizar tareas de despliegue e implementación</strong>. Hoy está en funcionamiento y ayuda ahorrar hasta un 30% en el manejo de los tiempos.</p><p>Como Ingeniero en Informática me mantengo en constante capacitación y desarrollo personal como profesional, <strong>en donde cuento con un conocimiento amplio en <em class="italic">Desarrollo Web, Machine Learning, Análisis de datos y Ciencia de Datos</em></strong>. Mi objetivo es mejorar cada día, aprendiendo nuevas herramientas y compartir ese conocimiento mediante blogs, conferencias, talleres.</p>`,
       'footer.rights': 'Casi todos los derechos reservados',
       exp: [
         {
-          title: 'Creador de contenido',
+          title: 'Freelancer',
           date: 'Actualmente...',
-          company: 'Twitch',
-          description: 'Divulgo sobre programación y desarrollo web en diferentes plataformas. Galardonado como mejor creador de contenido de habla no-inglesa en 2022 y mejor comunidad en 2023 por GitHub.',
-          link: 'https://twitch.tv/midudev',
+          company: 'HostWeb',
+          description: 'Startup en fase piloto iniciada con un grupo de colegas en la cual, ofrecemos servicios de alojamiento y desarrollo de aplicaciones web en múltiples plataformas.',
+          link: 'https://github.com/HostWeb-Inovation',
           linkLabel: 'Saber más',
         },
         {
-          title: 'Principal Frontend Engineer',
-          date: 'Septiembre 2022',
-          company: 'Adevinta Spain',
-          description: 'Responsable de la plataforma, componentes y utilidades para la creación y desarrollo de aplicaciones web. Mejora de un 30% en la entrega de software. Implantación de medidas de integración continua y despliegue con A/B testing en más de 15 equipos.'
-        }
+          title: 'Software Engineer',
+          date: 'Enero 2023',
+          company: 'OpenPyme',
+          description: 'Responsable de la creación, planificación, desarrollo y documentación de módulos base, personalizados del software ERP Odoo. Mejora en un 30% en la administración de servidores que involucra la integración continua y despliegue de código con el software Rundeck.',
+          link: 'https://openpyme.mx/',
+          linkLabel: 'Saber más',
+        },
+        {
+          title: 'Dueño Cibercafe',
+          date: 'Diciembre 2021',
+          company: 'Wifi-Vicente',
+          description: 'Provisión de soporte técnico integral a equipos de cómputo y dispositivos móviles, abordando problemas de hardware o software para garantizar un funcionamiento continuo y eficiente.',
+        },
       ],
       projects: [
         {
@@ -76,23 +84,31 @@ export const languages = {
       'technologies.title':'Technologies',
       'projects.title': 'Projects',
       'about.title': 'About me',
-      'about.bio': `<p>My name is Gabriel, but my friends call me Gabo. I started programming with an Amstrad when I was 10 years old. Currently, I'm <strong>leading development teams in multinational companies</strong>.</p><p>Some of my successes include <strong>collaborating with Mozilla on the development of the first apps for their FirefoxOS system</strong>. Although it's now gone, it was a significant advancement in the world of web development.</p><p>As a content creator, <strong>I have the most-watched Spanish-speaking channel in the world in the <em class="italic">Software & Game Development</em> category on Twitch</strong>. My goal is to improve employability within the Spanish-speaking community and provide access to quality content.</p>`,
+      'about.bio': `<p>My name is Gabriel but my friends call me Gabo. I started programming since high school, I was 15 years old. Currently I am <strong>leading a development team for the creation of a Startup</strong>.</p><p>Some of my successes include <strong>collaborating with OpenPyme for the development of a server orchestrator and automate deployment and implementation tasks</strong>. Today it is operational and helps save up to 30% in time management.</p><p>As a Computer Engineer I keep myself in constant training and personal development as a professional, <strong>where I have a broad knowledge in <em class="italic">Web Development, Machine Learning, Data Analysis and Data Science</em></strong>. My goal is to improve every day, learning new tools and sharing that knowledge through blogs, conferences, workshops.</p>`,
       'footer.rights': 'Almost all rights reserved',
       exp: [
         {
-          title: 'Content creator',
+          title: 'Freelancer',
           date: 'Present...',
-          company: "Twitch",
-          description: 'I share about programming and web development on various platforms. Awarded as the best non-English content creator in 2022 and best community in 2023 by GitHub.',
-          link: 'https://twitch.tv/midudev',
+          company: "HostWeb",
+          description: 'Startup in the pilot phase started with a group of colleagues in which we offer hosting services and web application development on multiple platforms.',
+          link: 'https://github.com/HostWeb-Inovation',
           linkLabel: 'Know more',
 
         },
         {
-          title: 'Principal Frontend Engineer',
-          date: 'September 2022',
-          company: 'Adevinta Spain',
-          description: 'Responsible for the platform, components, and utilities for the creation and development of web applications. Achieved a 30% improvement in software delivery. Implementation of continuous integration and deployment measures with A/B testing across more than 15 teams.'
+          title: 'Software Engineer',
+          date: 'Junuary 2023',
+          company: 'OpenPyme',
+          description: 'Responsible for the creation, planning, development, and documentation of base and custom modules of the Odoo ERP software. 30% improvement in server administration involving continuous integration and code deployment with Rundeck software.',
+          link: 'https://openpyme.mx/',
+          linkLabel: 'Know more',
+        },
+        {
+          title: 'Owner Cybercafe',
+          date: 'December 2021',
+          company: 'Wifi-Vicente',
+          description: 'Provision of comprehensive technical support to computer equipment and mobile devices, addressing hardware or software problems to ensure continuous and efficient operation.'
         }
       ],
       projects: [
