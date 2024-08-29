@@ -1,35 +1,22 @@
 ---
 import ExperienceItem from "./ExperienceItem.astro"
-const EXPERIENCE = [
-  {
-    date: "Actualmente...",
-    title: "Freelancer",
-    company: "HostWeb",
-    description:
-      "Divulgo sobre programación y desarrollo web en diferentes plataformas. Galardonado como mejor creador de contenido de habla no-inglesa en 2022 y mejor comunidad en 2023 por GitHub.",
-    link: "https://github.com/HostWeb-Inovation",
-  },
-  {
-    date: "Enero 2023",
-    title: "Developer Engineer",
-    company: "OpenPyme",
-    description:
-      "Responsable de la creación, planificación, desarrollo y documentación de módulos base y personalizados del software ERP Odoo.",
-    link: "https://openpyme.mx/",
-  },
-  {
-    date: "Septiembre 2021",
-    title: "Dueño CiberCafe",
-    company: "CiberVicente",
-    description:
-      "Provisión de soporte técnico integral a equipos de cómputo, dispositivos móviles, abordando problemas de hardware y software para garantizar un funcionamiento continuo.",
-  },
-]
+import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+type tLang = (str: any) => any;
+const lang = getLangFromUrl(Astro.url)
+const t:tLang = useTranslations(lang);
+type Experience = {
+  title: string;
+  company: string;
+  date: string;
+  description: string;
+  link: string;
+}
+const EXP: Experience[] = t('exp');
 ---
 
 <ol class="relative mt-16">
   {
-    EXPERIENCE.map((experience) => (
+    EXP.map((experience) => (
       <li class="">
         <ExperienceItem {...experience} />
       </li>
