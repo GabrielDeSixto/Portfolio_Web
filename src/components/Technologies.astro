@@ -10,6 +10,7 @@ import MongoDBIcon from "./icons/MongoDB.astro";
 import NodeJSIcon from "./icons/Node.astro";
 import ReactIcon from "./icons/React.astro";
 import PostgreSQLIcon from "./icons/PostgreSQL.astro";
+import GoogleCloudIcon from "./icons/GoogleCloud.astro";
 
 
 enum TechnologyType {
@@ -53,37 +54,43 @@ const TECHNOLOGIES = [
     name: "Git",
     icon: GitIcon,
     colorClasses: "bg-orange-600 dark:border-slate-600/20 border-2",
-    type: TechnologyType.Frontend,
+    type: TechnologyType.Other,
   },
   {
     name: "Python",
     icon: PythonIcon,
     colorClasses: "bg-blue-400 dark:border-slate-600/20 border-2",
-    type: TechnologyType.Frontend,
+    type: TechnologyType.Backend,
   },
   {
     name: "MongoDB",
     icon: MongoDBIcon,
     colorClasses: "bg-green-500 dark:border-slate-600/20 border-2",
-    type: TechnologyType.Frontend,
+    type: TechnologyType.Backend,
   },
   {
     name: "PostgreSQL",
     icon: PostgreSQLIcon,
     colorClasses: "bg-blue-500 dark:border-slate-600/20 border-2",
-    type: TechnologyType.Frontend,
+    type: TechnologyType.Backend,
   },
   {
     name: "NodeJS",
     icon: NodeJSIcon,
     colorClasses: "bg-green-500 dark:border-slate-600/20 border-2",
-    type: TechnologyType.Frontend,
+    type: TechnologyType.Backend,
   },
   {
     name: "React",
     icon: ReactIcon,
     colorClasses: "bg-blue-500 dark:border-slate-600/20 border-2",
     type: TechnologyType.Frontend,
+  },
+  {
+    name: "Google Cloud",
+    icon: GoogleCloudIcon,
+    colorClasses: "bg-white-500 dark:border-slate-600/20 border-2",
+    type: TechnologyType.Other,
   },
 ];
 ---
@@ -95,10 +102,11 @@ const TECHNOLOGIES = [
         class={`flex flex-col items-center justify-center p-4 transition-all duration-300 ${technology.colorClasses} hover:scale-110 rounded-lg shadow-md`}
       >
         <technology.icon className="size-12" />
-        <span class="mt-2 text-sm font-semibold text-white">
+        <span class={`mt-2 text-sm font-semibold ${technology.name === "Google Cloud" ? "text-black" : "text-white"}`}>
           {technology.name}
         </span>
       </div>
     ))
   }
 </div>
+
