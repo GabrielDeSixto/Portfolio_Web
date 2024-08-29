@@ -1,5 +1,5 @@
 export const languages = {
-    es: '🇪🇸',
+    es: '🇲🇽',
     en: '🇺🇸',
   };
 
@@ -8,14 +8,14 @@ export const languages = {
   export const ui = {
     es: {
       'layout.title': 'Desarrollador y Programador Web',
-      'layout.description': 'Contrata a midudev para crear tu aplicación web o móvil. Desarrollador Web y Creador de Contenido. Especializado en crear aplicaciones únicas.',
+      'layout.description': 'Contrata a Gabriel Solano De Sixto para crear tu aplicación web o móvil. Especializado en crear aplicaciones únicas.',
       'nav.home':'Experiencia',
       'nav.projects':'Proyectos',
       'nav.about':'Sobre mí',
       'nav.contact':'Contacto',
       'hero.badge': 'Disponible para trabajar',
       'hero.title': 'Hey, soy Gabriel',
-      'hero.bio': '+3 años de experiencia. <strong>Ingeniero de Software y Científico de datos</strong> de Puebla, México 🇪🇸. Especializado en el desarrollo de aplicaciones web únicas y análisis de datos.',
+      'hero.bio': '+3 años de experiencia. <strong>Ingeniero de Software y Científico de datos</strong> de Puebla, México 🇲🇽. Especializado en el desarrollo de aplicaciones web únicas y análisis de datos.',
       'hero.mail': 'Contáctame',
       'hero.linkedin': 'LinkedIn',
       'hero.cv':'Descargar CV',
@@ -23,7 +23,7 @@ export const languages = {
       'projects.title': 'Proyectos',
       'technologies.title':'Tecnologias',
       'about.title': 'Sobre mí',
-      'about.bio': `<p>Me llamo Gabriel pero mis amigos me llaman Gabo. Empecé en la programación desde secundaria, tenía 15 años. Actualmente estoy <strong>liderando equipos de desarrollo en multinacionales</strong>.</p><p>Algunos de mis éxitos incluyen <strong>colaborar con Mozilla para el desarrollo de las primeras apps en su sistema FirefoxOS</strong>. Aunque hoy está desaparecido fue un gran avance en el mundo deldesarrollo web.</p><p>Como creador de contenido, <strong>cuento con el canal de habla hispana más visto del mundo en la categoría de <em class="italic">Software & Game Development</em> en Twitch</strong>. Mi objetivo es mejorar la empleabilidad de la comunidad hispana y el acceso a contenido de calidad.</p>`,
+      'about.bio': `<p>Me llamo Gabriel pero mis amigos me llaman Gabo. Empecé en la programación desde secundaria, tenía 15 años. Actualmente estoy <strong>liderando un equipo de desarrollo para un emprendimiento</strong>.</p><p>Algunos de mis éxitos incluyen <strong>colaborar con OpenPyme para el desarrollo de un orquestador de servidores y automatizar tareas repetitivas</strong>. Hoy está desaparecido fue un gran avance en el mundo deldesarrollo web.</p><p>Como creador de contenido, <strong>cuento con el canal de habla hispana más visto del mundo en la categoría de <em class="italic">Software & Game Development</em> en Twitch</strong>. Mi objetivo es mejorar la empleabilidad de la comunidad hispana y el acceso a contenido de calidad.</p>`,
       'footer.rights': 'Casi todos los derechos reservados',
       exp: [
         {
@@ -61,16 +61,17 @@ export const languages = {
     },
     en: {
       'layout.title' : ` Web Developer and Programmer`,
-      'layout.description': 'Hire Midudev to build your web or mobile application. Web Developer and Content Creator. Specialized in creating unique applications.',
+      'layout.description': 'Hire Gabriel Solano De Sixto to build your web or mobile application. Web Developer and Data Science. Specialized in creating unique applications.',
       'nav.home':'Experience',
       'nav.projects':'Projects',
       'nav.about':'About me',
       'nav.contact':'Contact',
       'hero.badge': 'Open to work',
-      'hero.title': `Hey, I'm midudev`,
-      'hero.bio': '+3 years of experience. <strong>Software Engineer and Content Creator</strong> from Puebla, México 🇪🇸. Specialized in the development of unique web applications.',
+      'hero.title': `Hey, I'm Gabriel`,
+      'hero.bio': '+3 years of experience. <strong>Software Engineer and Data Science</strong> from Puebla, Mexico 🇲🇽. Specialized in the development of unique web applications.',
       'hero.mail': 'Contact me',
       'hero.linkedin': 'LinkedIn',
+      'hero.cv':'Download CV',
       'exp.title': 'Professional Experience',
       'technologies.title':'Technologies',
       'projects.title': 'Projects',
