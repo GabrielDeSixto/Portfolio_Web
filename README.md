@@ -1,6 +1,6 @@
 # 👨🏻‍💻 Porfolio para programadores y desarrolladores
 
-
+Este portafolio fue creado a partir del proyecto [portfolio.dev](https://github.com/midudev/portfolio.dev) de [Midudev](https://midu.dev).
 
 <div align="center">
 
@@ -12,5 +12,7 @@
 ![GitHub issues](https://img.shields.io/github/issues/midudev/porfolio.dev)
 
 </div>
+
+
 
 
