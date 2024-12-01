@@ -27,6 +27,15 @@ export const languages = {
       'footer.rights': 'Casi todos los derechos reservados',
       exp: [
         {
+          'title': 'Aplication Suppoort L3',
+          'date': 'Actualmente...',
+          'company': 'Stefanini Group',
+          'description': 'Responsable de dar soporte al sitema de inversiones del Banco Banamex en México. Realizando tareas de mantenimiento, soporte y desarrollo de funcionalidades en el sistema.',
+          'link': 'https://stefanini.com/es/latam/stefanini-mexico',
+          'linkLabel': 'Saber más',
+
+        },
+        {
           title: 'Freelancer',
           date: 'Actualmente...',
           company: 'HostWeb',
@@ -87,6 +96,15 @@ export const languages = {
       'about.bio': `<p>My name is Gabriel but my friends call me Gabo. I started programming since high school, I was 15 years old. Currently I am <strong>leading a development team for the creation of a Startup</strong>.</p><p>Some of my successes include <strong>collaborating with OpenPyme for the development of a server orchestrator and automate deployment and implementation tasks</strong>. Today it is operational and helps save up to 30% in time management.</p><p>As a Computer Engineer I keep myself in constant training and personal development as a professional, <strong>where I have a broad knowledge in <em class="italic">Web Development, Machine Learning, Data Analysis and Data Science</em></strong>. My goal is to improve every day, learning new tools and sharing that knowledge through blogs, conferences, workshops.</p>`,
       'footer.rights': 'Almost all rights reserved',
       exp: [
+        {
+          'title': 'Aplication Suppoort L3',
+          'date': 'Currently...',
+          'company': 'Stefanini Group',
+          'description': 'Responsible for supporting the investment system of Banco Banamex in Mexico. Performing maintenance, support and development of functionalities in the system.',
+          'link': 'https://stefanini.com/es/latam/stefanini-mexico',
+          'linkLabel': 'Saber más',
+
+        },
         {
           title: 'Freelancer',
           date: 'Present...',
