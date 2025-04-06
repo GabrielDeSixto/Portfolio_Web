@@ -11,44 +11,209 @@ interface Props {
 const { title, company, description, link, linkLabel, date } = Astro.props
 ---
 
-<div
-  class="relative mx-12 pb-12 grid before:absolute before:left-[-35px] before:block before:h-full before:border-l-2 before:border-black/20 dark:before:border-white/15 before:content-[''] md:grid-cols-5 md:gap-10 md:space-x-4]"
->
-  <div class="relative pb-12 md:col-span-2">
-    <div class="sticky top-0">
-      <span class="text-yellow-400 -left-[42px] absolute rounded-full text-5xl"
-        >&bull;</span
-      >
-      <h3 class="text-xl font-bold text-yellow-400">{title}</h3>
-      <h4 class="font-semibold text-xl text-gray-600 dark:text-white">{company}</h4>
-      <time class="p-0 m-0 text-sm text-gray-600/80 dark:text-white/80">{date}</time>
+<article class="experience-item">
+  <div class="experience-header">
+    <div class="experience-marker"></div>
+    <div class="experience-meta">
+      <h3 class="experience-title">{title}</h3>
+      <h4 class="experience-company">{company}</h4>
+      <time class="experience-date">{date}</time>
     </div>
   </div>
-  <div class="relative flex flex-col gap-2 pb-4 text-gray-600 dark:text-gray-300 md:col-span-3">
-    {description}
+  
+  <div class="experience-content">
+    <p class="experience-description">{description}</p>
     {
       link && (
-        <LinkInline href={link}>
+        <LinkInline href={link} class="experience-link">
           {linkLabel}
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="w-5 icon icon-tabler icon-tabler-chevron-right"
-            width="24"
-            height="24"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
-            stroke-width="2"
-            stroke="currentColor"
             fill="none"
+            stroke="currentColor"
+            stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
           >
-            <>
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M9 6l6 6l-6 6" />
-            </>
+            <path d="M9 6l6 6l-6 6" />
           </svg>
         </LinkInline>
       )
     }
   </div>
-</div>
+</article>
+
+<style>
+  .experience-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 0;
+    border-left: 2px solid rgba(100, 100, 100, 0.2);
+    margin-left: 1.5rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .experience-item:hover {
+    transform: translateX(5px);
+  }
+  
+  .experience-item:hover .experience-marker {
+    transform: translateX(-50%) scale(1.2);
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
+  }
+
+  .experience-header {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .experience-marker {
+    position: absolute;
+    left: -0.5rem;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    transform: translateX(-50%);
+    transition: all 0.3s ease;
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+  }
+
+  .experience-meta {
+    padding-left: 1.5rem;
+  }
+
+  .experience-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    background: linear-gradient(90deg, #3b82f6, #2563eb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .experience-company {
+    font-size: 1.125rem;
+    font-weight: 500;
+    margin: 0.25rem 0;
+    color: var(--color-text-primary);
+  }
+
+  .experience-date {
+    display: inline-block;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin-top: 0.25rem;
+    padding: 0.2rem 0.6rem;
+    background-color: rgba(59, 130, 246, 0.1);
+    border-radius: 4px;
+  }
+
+  .experience-content {
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .experience-description {
+    margin: 0;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+  }
+
+  .experience-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: 0.75rem;
+    font-weight: 500;
+    color: #3b82f6;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+
+  .experience-link:hover {
+    color: #2563eb;
+    gap: 0.5rem;
+  }
+
+  .experience-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #2563eb;
+    transition: width 0.3s ease;
+  }
+
+  .experience-link:hover::after {
+    width: 100%;
+  }
+
+  :root {
+    --color-text-primary: #1f2937;
+    --color-text-secondary: #4b5563;
+  }
+
+  :global(.dark) {
+    --color-text-primary: #f3f4f6;
+    --color-text-secondary: #d1d5db;
+  }
+
+  @media (min-width: 768px) {
+    .experience-item {
+      flex-direction: row;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-left: none;
+      margin-left: 0;
+    }
+
+    .experience-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .experience-header {
+      flex: 0 0 30%;
+      margin-bottom: 0;
+    }
+
+    .experience-marker {
+      left: 30%;
+    }
+
+    .experience-meta {
+      padding-left: 0;
+    }
+
+    .experience-content {
+      flex: 1;
+      padding-left: 2rem;
+      border-left: 2px solid rgba(100, 100, 100, 0.2);
+    }
+    
+    .experience-content::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 2px;
+      height: 0;
+      background: linear-gradient(to bottom, #3b82f6, transparent);
+      transition: height 0.5s ease;
+    }
+    
+    .experience-item:hover .experience-content::before {
+      height: 30%;
+    }
+  }
+</style>
