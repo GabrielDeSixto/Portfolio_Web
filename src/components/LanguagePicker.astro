@@ -1,19 +1,171 @@
 ---
-import { languages } from '@/i18n/ui';
-import { getLangFromUrl, useTranslatedPath } from '@/i18n/utils';
-const lang = getLangFromUrl(Astro.url);
-const translatePath = useTranslatedPath(lang);
+import { languages } from "../i18n/ui";
+import { getLangFromUrl } from "../i18n/utils";
+
+const currentLang = getLangFromUrl(Astro.url);
+const otherLang = currentLang === "es" ? "en" : "es";
+const otherLangPath = otherLang === "es" ? "/" : `/${otherLang}`;
+const langNames = {
+  es: "Español",
+  en: "English"
+};
+const langFlags = {
+  es: "🇪🇸",
+  en: "🇺🇸"
+};
 ---
 
-<div class="flex flex-row gap-1">
-  {
-    Object.entries(languages).map(([langPrefix, label]) => {     
-      if (langPrefix == lang) return <></>
-      return (
-        <a
-         href={translatePath("/", langPrefix)}
-         class="hover:scale-125 transition"
-         >{label}</a>)
-    })
+<a
+  id="languageToggle"
+  href={otherLangPath}
+  class="language-toggle"
+  title={`Cambiar a ${langNames[otherLang]}`}
+  aria-label={`Cambiar a ${langNames[otherLang]}`}
+>
+  <div class="language-icon-container">
+    <!-- Icono del idioma actual -->
+    <div class="language-icon current">
+      <span class="flag">{langFlags[currentLang]}</span>
+    </div>
+    
+    <!-- Icono del otro idioma -->
+    <div class="language-icon other">
+      <span class="flag">{langFlags[otherLang]}</span>
+    </div>
+  </div>
+  <span class="language-label">{langNames[currentLang]}</span>
+</a>
+
+<style>
+  .language-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    margin-left: 0.75rem; /* Añadido margen izquierdo para separación */
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--color-text);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
   }
-</div>
+
+  .language-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  .language-toggle:active {
+    transform: translateY(0);
+  }
+
+  .language-icon-container {
+    position: relative;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .language-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .language-icon.current {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .language-icon.other {
+    opacity: 0;
+    transform: translateY(100%) scale(0.8);
+  }
+
+  .language-toggle:hover .language-icon.current {
+    opacity: 0;
+    transform: translateY(-100%) scale(0.8);
+  }
+
+  .language-toggle:hover .language-icon.other {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .flag {
+    font-size: 1.25rem;
+  }
+
+  .language-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  /* Variables para modo claro/oscuro */
+  :root {
+    --color-text: #4b5563;
+  }
+
+  :global(.dark) {
+    --color-text: #d1d5db;
+  }
+
+  /* Estilos responsivos */
+  @media (max-width: 640px) {
+    .language-label {
+      display: none;
+    }
+    
+    .language-toggle {
+      padding: 0.5rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const languageToggle = document.getElementById('languageToggle');
+    
+    if (!languageToggle) return;
+    
+    languageToggle.addEventListener('click', (e) => {
+      // Añadir clase para animación al hacer clic
+      languageToggle.classList.add('animating');
+      
+      // No prevenimos el evento predeterminado para permitir la navegación
+      
+      // Efecto visual de rotación al cambiar
+      const iconContainer = languageToggle.querySelector('.language-icon-container');
+      if (iconContainer) {
+        iconContainer.style.animation = 'rotate 0.5s ease';
+        
+        // Eliminar la animación después de completarse
+        setTimeout(() => {
+          iconContainer.style.animation = '';
+        }, 500);
+      }
+    });
+  });
+  
+  // Añadir keyframes para la animación de rotación
+  if (!document.querySelector('#language-toggle-keyframes')) {
+    const style = document.createElement('style');
+    style.id = 'language-toggle-keyframes';
+    style.textContent = `
+      @keyframes rotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+</script>
