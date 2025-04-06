@@ -1,0 +1,58 @@
+---
+---
+
+<div class="fixed bottom-6 right-6 z-50 group">
+  <div class="absolute bottom-full right-0 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+    <div class="bg-gray-800 text-white text-sm py-1 px-3 rounded-md shadow-lg whitespace-nowrap backdrop-blur-md bg-opacity-80">
+      Contáctame
+      <div class="absolute top-full right-4 -mt-1 border-4 border-transparent border-t-gray-800"></div>
+    </div>
+  </div>
+  
+  <button
+    id="contactButton"
+    class="flex items-center justify-center w-14 h-14 text-white bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full shadow-lg hover:shadow-indigo-500/50 transition-all duration-300 hover:scale-110"
+    aria-label="Contact me"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="w-6 h-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+      />
+    </svg>
+  </button>
+</div>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const contactButton = document.getElementById('contactButton');
+    
+    if (contactButton) {
+      // Añadir animación de entrada
+      setTimeout(() => {
+        contactButton.style.transform = 'translateY(0)';
+        contactButton.style.opacity = '1';
+      }, 1000);
+      
+      contactButton.addEventListener('click', () => {
+        window.location.href = 'mailto:gabrielsolanodesixto@gmail.com';
+      });
+    }
+  });
+</script>
+
+<style>
+  #contactButton {
+    transform: translateY(100px);
+    opacity: 0;
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out, scale 0.3s ease;
+  }
+</style>

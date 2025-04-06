@@ -1,0 +1,105 @@
+---
+interface Props {
+  animation?: 'fade-up' | 'fade-down' | 'fade-left' | 'fade-right' | 'zoom-in' | 'zoom-out';
+  duration?: number;
+  delay?: number;
+  class?: string;
+}
+
+const { 
+  animation = 'fade-up', 
+  duration = 0.5, 
+  delay = 0, 
+  class: className = '' 
+} = Astro.props;
+---
+
+<div 
+  class={`animated-entry ${className}`}
+  data-animation={animation}
+  data-duration={duration}
+  data-delay={delay}
+>
+  <slot />
+</div>
+
+<style>
+  .animated-entry {
+    opacity: 0;
+  }
+</style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const element = entry.target as HTMLElement;
+          const animation = element.dataset.animation || 'fade-up';
+          const duration = parseFloat(element.dataset.duration || '0.5');
+          const delay = parseFloat(element.dataset.delay || '0');
+          
+          let keyframes;
+          switch (animation) {
+            case 'fade-up':
+              keyframes = [
+                { opacity: 0, transform: 'translateY(30px)' },
+                { opacity: 1, transform: 'translateY(0)' }
+              ];
+              break;
+            case 'fade-down':
+              keyframes = [
+                { opacity: 0, transform: 'translateY(-30px)' },
+                { opacity: 1, transform: 'translateY(0)' }
+              ];
+              break;
+            case 'fade-left':
+              keyframes = [
+                { opacity: 0, transform: 'translateX(30px)' },
+                { opacity: 1, transform: 'translateX(0)' }
+              ];
+              break;
+            case 'fade-right':
+              keyframes = [
+                { opacity: 0, transform: 'translateX(-30px)' },
+                { opacity: 1, transform: 'translateX(0)' }
+              ];
+              break;
+            case 'zoom-in':
+              keyframes = [
+                { opacity: 0, transform: 'scale(0.9)' },
+                { opacity: 1, transform: 'scale(1)' }
+              ];
+              break;
+            case 'zoom-out':
+              keyframes = [
+                { opacity: 0, transform: 'scale(1.1)' },
+                { opacity: 1, transform: 'scale(1)' }
+              ];
+              break;
+            default:
+              keyframes = [
+                { opacity: 0 },
+                { opacity: 1 }
+              ];
+          }
+          
+          element.animate(keyframes, {
+            duration: duration * 1000,
+            easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+            fill: 'forwards',
+            delay: delay * 1000
+          });
+          
+          observer.unobserve(element);
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+    
+    document.querySelectorAll('.animated-entry').forEach(element => {
+      observer.observe(element);
+    });
+  });
+</script>

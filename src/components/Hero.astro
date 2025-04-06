@@ -11,9 +11,9 @@ const t = useTranslations(lang);
 ---
 
 <div class="max-w-xl">
-  <div class="flex gap-4 mb-4">
+  <div class="flex gap-4 mb-6">
     <img
-      class="rounded-full shadow-lg size-16"
+      class="rounded-full shadow-lg size-20 ring-2 ring-indigo-500/20 p-1"
       src="/me.jpg"
       alt={personalImageAlt}
     />
@@ -27,25 +27,25 @@ const t = useTranslations(lang);
     </a>
   </div>
   <h1
-    class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white"
+    class="text-5xl font-bold tracking-tight text-gray-800 sm:text-6xl dark:text-white mb-2"
   >
     {t('hero.title')}
   </h1>
   <p
     set:html={t('hero.bio')}
-    class="mt-6 text-xl text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
+    class="mt-6 text-xl text-gray-800 dark:[&>strong]:text-indigo-300 [&>strong]:text-indigo-600 [&>strong]:font-semibold dark:text-gray-300"
   >
   </p>
   <nav class="flex flex-wrap gap-4 mt-8">
-    <SocialPill href="mailto:gabrielsolanodesixto@gmail.com">
+    <SocialPill href="mailto:gabrielsolanodesixto@gmail.com" class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:shadow-indigo-500/50">
       <MailIcon class="size-4" />
       {t('hero.mail')}
     </SocialPill>
-    <SocialPill href="https://www.linkedin.com/in/gabriel-solano-de-sixto/">
+    <SocialPill href="https://www.linkedin.com/in/gabriel-solano-de-sixto/" class="bg-gradient-to-r from-blue-500 to-blue-700 text-white hover:shadow-blue-500/50">
       <LinkedInIcon class="size-4" />
       {t('hero.linkedin')}
     </SocialPill>
-    <SocialPill href="https://drive.google.com/file/d/1BWtoyHttQKXC6WyUFp6MUeUtr57306yt/view?usp=sharing">
+    <SocialPill href="https://drive.google.com/file/d/1BWtoyHttQKXC6WyUFp6MUeUtr57306yt/view?usp=sharing" class="bg-gradient-to-r from-red-500 to-red-700 text-white hover:shadow-red-500/50">
       <Pdf class="size-4" />
       {t('hero.cv')}
     </SocialPill>

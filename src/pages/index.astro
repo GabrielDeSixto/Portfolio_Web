@@ -9,6 +9,7 @@ import Projects from "@/components/Projects.astro"
 import SectionContainer from "@/components/SectionContainer.astro"
 import Hero from "@/components/Hero.astro"
 import Technologies from "@/components/Technologies.astro"
+import AnimatedEntry from "@/components/AnimatedEntry.astro"
 import { getLangFromUrl, useTranslations } from "@/i18n/utils"
 type tLang = (str: any) => any;
 const lang = getLangFromUrl(Astro.url)
@@ -21,49 +22,57 @@ const t:tLang = useTranslations(lang);
 >
   <main class="px-4">
     <SectionContainer class="py-16 md:py-36">
-      <Hero>
-      </slot>
-    </Hero>
+      <AnimatedEntry>
+        <Hero />
+      </AnimatedEntry>
     </SectionContainer>
     <div class="space-y-24">
-    <SectionContainer id="experiencia">
-      <h2
-        class="flex items-center mb-6 text-3xl font-semibold gap-x-3 text-black/80 dark:text-white"
-      >
-        <Briefcase class="size-8" />
-        {t('exp.title')}
-      </h2>
-      <Experience />
-    </SectionContainer>
-    <SectionContainer id="proyectos">
-      <h2
-        class="flex items-center mb-6 text-3xl font-semibold gap-x-3 text-black/80 dark:text-white"
-      >
-        <CodeIcon class="size-7" />
-        {t('projects.title')}
-      </h2>
-      <Projects />
-    </SectionContainer>
+      <SectionContainer id="experiencia">
+        <AnimatedEntry delay={0.1}>
+          <h2
+            class="flex items-center mb-6 text-3xl font-semibold gap-x-3 text-black/80 dark:text-white"
+          >
+            <Briefcase class="size-8" />
+            {t('exp.title')}
+          </h2>
+          <Experience />
+        </AnimatedEntry>
+      </SectionContainer>
+      <SectionContainer id="proyectos">
+        <AnimatedEntry delay={0.2}>
+          <h2
+            class="flex items-center mb-6 text-3xl font-semibold gap-x-3 text-black/80 dark:text-white"
+          >
+            <CodeIcon class="size-7" />
+            {t('projects.title')}
+          </h2>
+          <Projects />
+        </AnimatedEntry>
+      </SectionContainer>
 
-    <SectionContainer id="Tecnologias">
-      <h2
-        class="flex items-center mb-6 text-3xl font-semibold gap-x-3 text-black/80 dark:text-white"
-      >
-        <CodeIcon class="size-7" />
-        {t('technologies.title')}
-      </h2>
-      <Technologies />
-    </SectionContainer>
+      <SectionContainer id="Tecnologias">
+        <AnimatedEntry delay={0.3}>
+          <h2
+            class="flex items-center mb-6 text-3xl font-semibold gap-x-3 text-black/80 dark:text-white"
+          >
+            <CodeIcon class="size-7" />
+            {t('technologies.title')}
+          </h2>
+          <Technologies />
+        </AnimatedEntry>
+      </SectionContainer>
 
-    <SectionContainer id="sobre-mi">
-      <h2
-        class="flex items-center mb-6 text-3xl font-semibold gap-x-8 text-black/80 dark:text-white"
-      >
-        <ProfileCheck class="size-8" />
-        {t('about.title')}
-      </h2>
-      <AboutMe />
-    </SectionContainer>
-  </div>
+      <SectionContainer id="sobre-mi">
+        <AnimatedEntry delay={0.4}>
+          <h2
+            class="flex items-center mb-6 text-3xl font-semibold gap-x-8 text-black/80 dark:text-white"
+          >
+            <ProfileCheck class="size-8" />
+            {t('about.title')}
+          </h2>
+          <AboutMe />
+        </AnimatedEntry>
+      </SectionContainer>
+    </div>
   </main>
 </Layout>
