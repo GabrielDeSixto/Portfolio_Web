@@ -27,13 +27,15 @@ const t = useTranslations(lang);
     </a>
   </div>
   <h1
-    class="text-5xl font-bold tracking-tight text-gray-800 sm:text-6xl dark:text-white mb-2"
+    id="typing-title"
+    class="text-5xl font-bold tracking-tight text-gray-800 sm:text-6xl dark:text-white mb-2 typing-effect"
   >
     {t('hero.title')}
   </h1>
   <p
-    set:html={t('hero.bio')}
-    class="mt-6 text-xl text-gray-800 dark:[&>strong]:text-indigo-300 [&>strong]:text-indigo-600 [&>strong]:font-semibold dark:text-gray-300"
+    id="typing-bio"
+    class="mt-6 text-xl text-gray-800 dark:[&>strong]:text-indigo-300 [&>strong]:text-indigo-600 [&>strong]:font-semibold dark:text-gray-300 typing-effect"
+    data-content={t('hero.bio')}
   >
   </p>
   <nav class="flex flex-wrap gap-4 mt-8">
@@ -51,3 +53,131 @@ const t = useTranslations(lang);
     </SocialPill>
   </nav>
 </div>
+
+<style>
+  .typing-effect {
+    position: relative;
+  }
+  
+  .typing-effect::after {
+    content: "|";
+    position: absolute;
+    right: -8px;
+    width: 8px;
+    animation: cursor-blink 1s infinite step-end;
+  }
+  
+  @keyframes cursor-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  
+  /* Hide cursor completely when typing is complete */
+  .typing-effect.typing-complete::after {
+    opacity: 0;
+    animation: none;
+  }
+</style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    // Function to create typing effect
+    function createTypingEffect(elementId, delay, speed = 50) {
+      const element = document.getElementById(elementId);
+      if (!element) return;
+      
+      let content = '';
+      
+      // For the bio text, we need to handle HTML content
+      if (elementId === 'typing-bio') {
+        content = element.getAttribute('data-content') || '';
+        element.innerHTML = '';
+        
+        // Create a temporary element to parse HTML
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = content;
+        
+        // Extract text nodes and elements to type them properly
+        const nodes = Array.from(tempDiv.childNodes);
+        let currentNodeIndex = 0;
+        let currentTextIndex = 0;
+        let currentNode = nodes[0];
+        let isInsideTag = false;
+        let currentTag = '';
+        
+        function typeHTML() {
+          if (currentNodeIndex >= nodes.length) {
+            element.classList.add('typing-complete');
+            return;
+          }
+          
+          if (currentNode.nodeType === Node.TEXT_NODE) {
+            // Text node - type character by character
+            if (currentTextIndex < currentNode.textContent.length) {
+              element.innerHTML += currentNode.textContent[currentTextIndex];
+              currentTextIndex++;
+              setTimeout(typeHTML, speed);
+            } else {
+              // Move to next node
+              currentNodeIndex++;
+              currentNode = nodes[currentNodeIndex];
+              currentTextIndex = 0;
+              setTimeout(typeHTML, speed);
+            }
+          } else if (currentNode.nodeType === Node.ELEMENT_NODE) {
+            // Element node - add the whole tag at once
+            if (currentNode.tagName.toLowerCase() === 'strong') {
+              element.innerHTML += `<strong>${currentNode.innerHTML}</strong>`;
+            } else {
+              element.innerHTML += currentNode.outerHTML;
+            }
+            // Move to next node
+            currentNodeIndex++;
+            currentNode = nodes[currentNodeIndex];
+            currentTextIndex = 0;
+            setTimeout(typeHTML, speed);
+          }
+        }
+        
+        // Start typing HTML content
+        setTimeout(typeHTML, delay);
+        return; // Exit early as we're handling HTML differently
+      } else {
+        content = element.textContent || '';
+        element.textContent = '';
+      }
+      
+      // Only run the effect if we have content to type
+      if (!content.trim()) return;
+      
+      // Make sure the element is visible
+      element.style.visibility = 'visible';
+      element.classList.add('typing-effect');
+      
+      let charIndex = 0;
+      
+      function typeText() {
+        if (charIndex < content.length) {
+          element.textContent += content.charAt(charIndex);
+          charIndex++;
+          setTimeout(typeText, speed);
+        } else {
+          element.classList.add('typing-complete');
+        }
+      }
+      
+      // Start typing effect with specified delay
+      setTimeout(typeText, delay);
+    }
+    
+    // Apply typing effect to title first
+    createTypingEffect('typing-title', 500, 100);
+    
+    // Then apply to bio with a delay so it starts after title is complete
+    const titleElement = document.getElementById('typing-title');
+    const titleText = titleElement ? (titleElement.textContent || '') : '';
+    const titleDelay = 500 + (titleText.length * 100) + 500; // Initial delay + title typing time + pause
+    
+    createTypingEffect('typing-bio', titleDelay, 30);
+  });
+</script>
