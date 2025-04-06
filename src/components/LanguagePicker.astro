@@ -33,16 +33,16 @@ const langFlags = {
       <span class="flag">{langFlags[otherLang]}</span>
     </div>
   </div>
-  <span class="language-label">{langNames[currentLang]}</span>
+  <!-- Removing the label display -->
 </a>
 
 <style>
   .language-toggle {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0.75rem;
-    margin-left: 0.75rem; /* Añadido margen izquierdo para separación */
+    justify-content: center;
+    padding: 0.5rem;
+    margin-left: 0.5rem;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 9999px;
@@ -52,6 +52,8 @@ const langFlags = {
     text-decoration: none;
     position: relative;
     overflow: hidden;
+    width: 2.5rem;
+    height: 2.5rem;
   }
 
   .language-toggle:hover {
@@ -105,10 +107,7 @@ const langFlags = {
     font-size: 1.25rem;
   }
 
-  .language-label {
-    font-size: 0.875rem;
-    font-weight: 500;
-  }
+  /* Removing the language-label styles since we're not using it anymore */
 
   /* Variables para modo claro/oscuro */
   :root {
@@ -117,17 +116,6 @@ const langFlags = {
 
   :global(.dark) {
     --color-text: #d1d5db;
-  }
-
-  /* Estilos responsivos */
-  @media (max-width: 640px) {
-    .language-label {
-      display: none;
-    }
-    
-    .language-toggle {
-      padding: 0.5rem;
-    }
   }
 </style>
 

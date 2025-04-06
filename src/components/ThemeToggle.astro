@@ -39,6 +39,7 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem;
+    margin-right: 0.5rem;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 9999px;
@@ -85,6 +86,7 @@
     position: absolute;
     right: 0.75rem;
     pointer-events: none;
+    display: none; /* Ocultar la etiqueta en todos los tamaños */
   }
 
   .theme-toggle:hover .theme-label {
@@ -121,13 +123,11 @@
   /* Estilos responsivos */
   @media (min-width: 768px) {
     .theme-toggle {
-      padding: 0.5rem 0.75rem;
+      padding: 0.5rem; /* Mantener el padding igual en todos los tamaños */
     }
     
     .theme-label {
-      position: static;
-      opacity: 1;
-      margin-left: 0.25rem;
+      display: none; /* Asegurar que la etiqueta permanezca oculta */
     }
   }
 </style>
