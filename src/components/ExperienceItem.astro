@@ -26,7 +26,7 @@ const { title, company, description, link, linkLabel, date } = Astro.props
     {
       link && (
         <LinkInline href={link} class="experience-link">
-          {linkLabel}
+          {linkLabel || "Saber más"}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -134,14 +134,12 @@ const { title, company, description, link, linkLabel, date } = Astro.props
     gap: 0.25rem;
     margin-top: 0.75rem;
     font-weight: 500;
-    color: #3b82f6;
-    transition: all 0.2s ease;
-    position: relative;
+    color: #3b82f6; /* Cambiado a azul para consistencia */
+    transition: color 0.2s ease;
   }
 
   .experience-link:hover {
-    color: #2563eb;
-    gap: 0.5rem;
+    color: #2563eb; /* Azul más oscuro al hover */
   }
 
   .experience-link::after {

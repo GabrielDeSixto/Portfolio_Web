@@ -2,55 +2,190 @@
 import { getLangFromUrl, useTranslations } from "@/i18n/utils"
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang);
- const personalImageAlt = "Gabriel"
 ---
 
-<article class="flex flex-col items-center justify-center gap-8 text-gray-700 dark:text-gray-300 md:flex-row">
-  <div
-    class="[&>p]:mb-4 [&>p>strong]:text-yellow-500 dark:[&>p>strong]:text-yellow-100 [&>p>strong]:font-normal [&>p>strong]:font-mono text-pretty order-2 md:order-1"
-    set:html={t('about.bio')}
-  >
+<section class="about-me-section">
+  <div class="about-me-container">
+    <div class="about-me-header">
+      <div class="profile-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </div>
+      <h2 class="about-me-title">{t('aboutMe.title') || 'Sobre mí'}</h2>
+    </div>
 
-<!-- FRASES PROHIBIDAS EN VUESTRO PORTFOLIO
+    <div class="about-me-content">
+      <p class="about-me-intro">
+        {t('aboutMe.intro') || 'Me llamo Gabriel pero mis amigos me llaman Gabo. Empecé en la programación desde secundaria, tenía 15 años. Actualmente estoy liderando un equipo de desarrollo para la creación de una Startup.'}
+      </p>
 
-<p>
-  Mi sueño es encontrar mi primer empleo en el mundo de la programación. Una empresa donde pueda seguir aprendiendo. ❌
-</p>
+      <div class="achievements-section">
+        <h3 class="section-subtitle">{t('aboutMe.achievements') || 'Logros'}</h3>
+        <ul class="achievements-list">
+          <li class="achievement-item">
+            <span class="achievement-bullet"></span>
+            <p>{t('aboutMe.achievement1') || 'Colaborar con OpenPyme para el desarrollo de un orquestador de servidores y automatizar tareas de despliegue e implementación.'}</p>
+          </li>
+          <li class="achievement-item">
+            <span class="achievement-bullet"></span>
+            <p>{t('aboutMe.achievement2') || 'Optimización de procesos que ayuda a ahorrar hasta un 30% en el manejo de los tiempos.'}</p>
+          </li>
+        </ul>
+      </div>
 
-<p>
-  ❌ Apasionado de la programación desde chekitito. Me encantan los ordenadores y crear páginas web buenas y rápidas con la última tecnología.
-</p>
+      <div class="skills-section">
+        <h3 class="section-subtitle">{t('aboutMe.skills') || 'Especialidades'}</h3>
+        <div class="skills-container">
+          <div class="skill-pill">Desarrollo Web</div>
+          <div class="skill-pill">Machine Learning</div>
+          <div class="skill-pill">Análisis de datos</div>
+          <div class="skill-pill">Ciencia de Datos</div>
+        </div>
+      </div>
 
-<p>
-  Trabajo bien en equipo. Siempre estoy aprendiendo cosas nuevas.
-</p>
+      <div class="goals-section">
+        <h3 class="section-subtitle">{t('aboutMe.goals') || 'Objetivos'}</h3>
+        <p class="goals-text">
+          {t('aboutMe.goalsText') || 'Mi objetivo es mejorar cada día, aprendiendo nuevas herramientas y compartir ese conocimiento mediante blogs, conferencias, talleres.'}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
--------------------------------------
+<style>
+  .about-me-section {
+    width: 100%;
+    margin: 3rem 0;
+  }
 
---------------------------------------
+  .about-me-container {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 1.5rem;
+    padding: 2.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+  }
 
-<p>
-  ¡Soy Leo! Estudié Derecho Empresarial y, tras años ejerciendo, me pasé al mundo de la Programación. Desde entonces disfruto creando experiencias web para los usuarios.
-</p>
+  .about-me-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    gap: 1rem;
+  }
 
-<p>
-  Entre mis éxitos destaco que durante el Grado Superior, ayudé a mis compañeros a aprender sobre TDD. Me encanta el testing, creo en su importancia, y me gusta compartir mi conocimiento sobre ello.
-</p>
+  .profile-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    border-radius: 50%;
+    color: white;
+  }
 
-<p>
-  Cuento con experiencia desarrollando aplicaciones móviles, y he creado una iniciativa llamada X para mezclar mis dos pasiones: la programación y el derecho. Ayudando a la sociedad a acceso a una defensa justa.
-</p>
+  .profile-icon svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 
----------------------------------------
+  .about-me-title {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, #3b82f6, #2563eb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    margin: 0;
+  }
 
-<p>Me llamo Sara, tengo 25 años y soy de Santiago, Chile 🇨🇱. Terminé mis estudios como Desarrolladora Web. Me encanta enfocarme en la parte del rendimiento, para ofrecer la mejora experiencia al usuario.</p>
+  .about-me-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
 
-<p>
-  Colaboro en la organización del MeetUp local BeerJS donde reunimos a desarrolladores de Santiago para compartir conocimiento y experiencias. El año 2023 hicimos un total de 25 charlas con más de 2000 asistentes.
-</p>
+  .about-me-intro {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--color-text);
+  }
 
-<p>
-  Además de participar activamente en la comunidad, he participado en la Hackathon de Midudev quedando en 3er puesto con mi proyecto _Chatty_, donde usando IA podías interactuar con un PDF. ¡Échale un vistazo!
-</p>
+  .section-subtitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #3b82f6;
+  }
 
--->
+  .achievements-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .achievement-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .achievement-bullet {
+    flex-shrink: 0;
+    width: 0.75rem;
+    height: 0.75rem;
+    margin-top: 0.35rem;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    border-radius: 50%;
+  }
+
+  .skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .skill-pill {
+    padding: 0.5rem 1rem;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #3b82f6;
+    transition: all 0.3s ease;
+  }
+
+  .skill-pill:hover {
+    background: rgba(59, 130, 246, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .goals-text {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--color-text);
+  }
+
+  :root {
+    --color-text: #4b5563;
+  }
+
+  :global(.dark) {
+    --color-text: #d1d5db;
+  }
+
+  @media (max-width: 768px) {
+    .about-me-container {
+      padding: 1.5rem;
+    }
+  }
+</style>

@@ -29,39 +29,151 @@ const navItems = [
 ]
 ---
 
-<header
-  class="fixed top-0 z-10 flex items-center justify-center w-full mx-auto mt-2"
->
+<header class="fixed top-0 z-10 flex items-center justify-center w-full mx-auto mt-2">
   <nav
     id="header-nav"
-    class="flex px-4 py-2 text-sm font-medium rounded-full text-gray-600 dark:text-gray-200 justify-center items-center backdrop-blur-md bg-white/50 dark:bg-gray-900/50 border border-gray-200/20 dark:border-gray-700/20 shadow-lg"
+    class="flex px-4 py-2 text-sm font-medium rounded-full text-gray-700 dark:text-gray-200 justify-center items-center backdrop-blur-md bg-white/80 dark:bg-gray-800/80 border border-gray-200/20 dark:border-gray-700/30 shadow-lg transition-all duration-300"
   >
-  {
-    navItems.map((link) => (
-      <a
-      class="relative block px-3 py-2 transition hover:text-indigo-500 dark:hover:text-indigo-400"
-      aria-label={link.label}
-      href={link.url}
-      >
-      {link.title}
-      </a>
-      ))
-    }
-    <ThemeToggle />
-    <LanguagePicker />
+    <!-- Botón de menú móvil -->
+    <button id="mobile-menu-button" class="md:hidden flex items-center mr-2" aria-label="Menú">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+    
+    <!-- Contenedor de enlaces de navegación -->
+    <div id="nav-links" class="hidden md:flex md:items-center md:space-x-1">
+      {
+        navItems.map((link) => (
+          <a
+            class="relative block px-3 py-2 transition hover:text-indigo-500 dark:hover:text-indigo-400"
+            aria-label={link.label}
+            href={link.url}
+          >
+            {link.title}
+          </a>
+        ))
+      }
+    </div>
+    
+    <!-- Contenedor de botones de tema e idioma -->
+    <div class="flex items-center ml-auto">
+      <ThemeToggle />
+      <LanguagePicker />
+    </div>
   </nav>
+  
+  <!-- Menú móvil desplegable -->
+  <div id="mobile-menu" class="fixed top-14 left-4 right-4 bg-white/95 dark:bg-gray-800/95 rounded-lg shadow-lg p-4 backdrop-blur-md border border-gray-200/20 dark:border-gray-700/30 hidden z-20">
+    <div class="flex flex-col space-y-3">
+      {
+        navItems.map((link) => (
+          <a
+            class="block px-3 py-2 text-center transition hover:text-indigo-500 dark:hover:text-indigo-400 hover:bg-gray-100 dark:hover:bg-gray-700/50 rounded-md"
+            aria-label={link.label}
+            href={link.url}
+          >
+            {link.title}
+          </a>
+        ))
+      }
+    </div>
+  </div>
 </header>
+
+<style>
+  #header-nav {
+    transition: all 0.3s ease;
+  }
+  
+  #header-nav.scrolled {
+    @apply bg-white/90 dark:bg-gray-900/90;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Animación para el menú móvil */
+  #mobile-menu {
+    transform: translateY(-10px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    pointer-events: none;
+  }
+  
+  #mobile-menu.show {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  @media (max-width: 768px) {
+    #header-nav {
+      width: calc(100% - 2rem);
+      justify-content: space-between;
+    }
+  }
+</style>
 
 <script>
   document.addEventListener("astro:page-load", () => {
     const sections = document.querySelectorAll('section[data-section]');
     const navItems = document.querySelectorAll('header nav a');
+    const headerNav = document.getElementById('header-nav');
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.getElementById('nav-links');
 
+    // Función para manejar el scroll y aplicar efectos
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        headerNav?.classList.add('scrolled');
+      } else {
+        headerNav?.classList.remove('scrolled');
+      }
+    };
+
+    // Inicializar
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
+
+    // Manejo del menú móvil
+    mobileMenuButton?.addEventListener('click', () => {
+      mobileMenu?.classList.toggle('show');
+    });
+
+    // Cerrar menú móvil al hacer clic en un enlace
+    const mobileLinks = mobileMenu?.querySelectorAll('a');
+    mobileLinks?.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('show');
+      });
+    });
+
+    // Cerrar menú móvil al hacer clic fuera
+    document.addEventListener('click', (e) => {
+      if (
+        mobileMenu?.classList.contains('show') && 
+        !mobileMenu.contains(e.target) && 
+        !mobileMenuButton?.contains(e.target)
+      ) {
+        mobileMenu.classList.remove('show');
+      }
+    });
+
+    // Ajustar menú en cambio de tamaño de ventana
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768) {
+        mobileMenu?.classList.remove('show');
+      }
+    });
+
+    // Resaltar enlace activo según sección visible
     const callback = (entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
+          const currentId = entry.target.id;
           navItems.forEach(item => {
-            if (item.getAttribute('aria-label') === entry.target.id) {
+            if (item.getAttribute('aria-label') === currentId) {
               item.classList.add('text-indigo-500', 'dark:text-indigo-400');
             } else {
               item.classList.remove('text-indigo-500', 'dark:text-indigo-400');

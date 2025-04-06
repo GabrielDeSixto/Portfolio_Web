@@ -11,7 +11,10 @@ import NodeJSIcon from "./icons/Node.astro";
 import ReactIcon from "./icons/React.astro";
 import PostgreSQLIcon from "./icons/PostgreSQL.astro";
 import GoogleCloudIcon from "./icons/GoogleCloud.astro";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils"
 
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang);
 
 enum TechnologyType {
   Frontend = 1,
@@ -19,6 +22,7 @@ enum TechnologyType {
   Database = 3,
   Other = 4,
 }
+
 const TECHNOLOGIES = [
   {
     name: 'JavaScript',
@@ -93,20 +97,262 @@ const TECHNOLOGIES = [
     type: TechnologyType.Other,
   },
 ];
+
+// Agrupar tecnologías por tipo
+const frontendTechs = TECHNOLOGIES.filter(tech => tech.type === TechnologyType.Frontend);
+const backendTechs = TECHNOLOGIES.filter(tech => tech.type === TechnologyType.Backend);
+const databaseTechs = TECHNOLOGIES.filter(tech => tech.type === TechnologyType.Database);
+const otherTechs = TECHNOLOGIES.filter(tech => tech.type === TechnologyType.Other);
+
+// Textos para las categorías
+const categoryTexts = {
+  frontend: t('technologies.frontend') || 'Frontend',
+  backend: t('technologies.backend') || 'Backend',
+  database: t('technologies.database') || 'Database',
+  other: t('technologies.other') || 'Other'
+};
 ---
 
-<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-  {
-    TECHNOLOGIES.map((technology) => (
-      <div
-        class={`flex flex-col items-center justify-center p-6 transition-all duration-300 ${technology.colorClasses} hover:scale-105 rounded-xl shadow-md backdrop-blur-sm`}
-      >
-        <technology.icon className="size-14" />
-        <span class="mt-3 text-sm font-semibold text-white">
-          {technology.name}
-        </span>
+<div class="tech-showcase">
+  <!-- Tabs para categorías -->
+  <div class="tech-tabs">
+    <button class="tech-tab active" data-category="frontend">{categoryTexts.frontend}</button>
+    <button class="tech-tab" data-category="backend">{categoryTexts.backend}</button>
+    <button class="tech-tab" data-category="other">{categoryTexts.other}</button>
+  </div>
+
+  <!-- Contenedor para las tarjetas -->
+  <div class="tech-container">
+    <!-- Frontend Technologies -->
+    <div class="tech-category active" id="frontend">
+      <div class="tech-grid">
+        {frontendTechs.map((tech) => (
+          <div class="tech-card" data-tilt>
+            <div class={`tech-card-inner ${tech.colorClasses}`}>
+              <tech.icon className="tech-icon" />
+              <span class="tech-name">{tech.name}</span>
+            </div>
+          </div>
+        ))}
       </div>
-    ))
-  }
+    </div>
+
+    <!-- Backend Technologies -->
+    <div class="tech-category" id="backend">
+      <div class="tech-grid">
+        {backendTechs.map((tech) => (
+          <div class="tech-card" data-tilt>
+            <div class={`tech-card-inner ${tech.colorClasses}`}>
+              <tech.icon className="tech-icon" />
+              <span class="tech-name">{tech.name}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Other Technologies -->
+    <div class="tech-category" id="other">
+      <div class="tech-grid">
+        {otherTechs.map((tech) => (
+          <div class="tech-card" data-tilt>
+            <div class={`tech-card-inner ${tech.colorClasses}`}>
+              <tech.icon className="tech-icon" />
+              <span class="tech-name">{tech.name}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
 </div>
+
+<style>
+  .tech-showcase {
+    width: 100%;
+    margin: 2rem 0;
+  }
+
+  .tech-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .tech-tab {
+    padding: 0.5rem 1.5rem;
+    border-radius: 9999px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--color-text);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+  }
+
+  .tech-tab.active {
+    background-color: rgba(79, 70, 229, 0.2);
+    border-color: rgba(79, 70, 229, 0.4);
+    color: #4f46e5;
+  }
+
+  .tech-tab:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .tech-category {
+    display: none;
+    animation: fadeIn 0.5s ease forwards;
+  }
+
+  .tech-category.active {
+    display: block;
+  }
+
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .tech-card {
+    perspective: 1000px;
+    cursor: pointer;
+  }
+
+  .tech-card-inner {
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tech-card-inner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(100%);
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 0;
+  }
+
+  .tech-card:hover .tech-card-inner::before {
+    transform: translateY(0);
+  }
+
+  .tech-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-bottom: 1rem;
+    z-index: 1;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+    transition: transform 0.3s ease;
+  }
+
+  .tech-card:hover .tech-icon {
+    transform: scale(1.1);
+  }
+
+  .tech-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: white;
+    z-index: 1;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .tech-grid {
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .tech-grid {
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+  }
+
+  :root {
+    --color-text: #4b5563;
+  }
+
+  :global(.dark) {
+    --color-text: #d1d5db;
+  }
+</style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    // Efecto de tarjeta 3D al mover el cursor
+    const cards = document.querySelectorAll('.tech-card');
+    
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
+        
+        card.querySelector('.tech-card-inner').style.transform = 
+          `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        card.querySelector('.tech-card-inner').style.transform = 
+          'rotateX(0) rotateY(0)';
+      });
+    });
+    
+    // Cambio de categorías
+    const tabs = document.querySelectorAll('.tech-tab');
+    const categories = document.querySelectorAll('.tech-category');
+    
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Desactivar todas las pestañas y categorías
+        tabs.forEach(t => t.classList.remove('active'));
+        categories.forEach(c => c.classList.remove('active'));
+        
+        // Activar la pestaña seleccionada
+        tab.classList.add('active');
+        
+        // Activar la categoría correspondiente
+        const categoryId = tab.getAttribute('data-category');
+        document.getElementById(categoryId).classList.add('active');
+      });
+    });
+  });
+</script>
 
