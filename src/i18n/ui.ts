@@ -25,6 +25,18 @@ export const languages = {
       'about.title': 'Sobre mí',
       'about.bio': `<p>Me llamo Gabriel pero mis amigos me llaman Gabo. Empecé en la programación desde secundaria, tenía 15 años. Actualmente estoy <strong>liderando un equipo de desarrollo para la creación de una Startup</strong>.</p><p>Algunos de mis éxitos incluyen <strong>colaborar con OpenPyme para el desarrollo de un orquestador de servidores y automatizar tareas de despliegue e implementación</strong>. Hoy está en funcionamiento y ayuda ahorrar hasta un 30% en el manejo de los tiempos.</p><p>Como Ingeniero en Informática me mantengo en constante capacitación y desarrollo personal como profesional, <strong>en donde cuento con un conocimiento amplio en <em class="italic">Desarrollo Web, Machine Learning, Análisis de datos y Ciencia de Datos</em></strong>. Mi objetivo es mejorar cada día, aprendiendo nuevas herramientas y compartir ese conocimiento mediante blogs, conferencias, talleres.</p>`,
       'footer.rights': 'Casi todos los derechos reservados',
+      'aboutMe.title': 'Sobre mí',
+      'aboutMe.intro': 'Me llamo Gabriel pero mis amigos me llaman Gabo. Empecé en la programación desde secundaria, tenía 15 años. Actualmente estoy liderando un equipo de desarrollo para la creación de una Startup.',
+      'aboutMe.achievements': 'Logros',
+      'aboutMe.achievement1': 'Colaborar con OpenPyme para el desarrollo de un orquestador de servidores y automatizar tareas de despliegue e implementación.',
+      'aboutMe.achievement2': 'Optimización de procesos que ayuda a ahorrar hasta un 30% en el manejo de los tiempos.',
+      'aboutMe.skills': 'Especialidades',
+      'aboutMe.skill1': 'Desarrollo Web',
+      'aboutMe.skill2': 'Machine Learning',
+      'aboutMe.skill3': 'Análisis de datos',
+      'aboutMe.skill4': 'Ciencia de Datos',
+      'aboutMe.goals': 'Objetivos',
+      'aboutMe.goalsText': 'Mi objetivo es mejorar cada día, aprendiendo nuevas herramientas y compartir ese conocimiento mediante blogs, conferencias, talleres.',
       exp: [
         {
           'title': 'Aplication Suppoort L3',
@@ -95,6 +107,19 @@ export const languages = {
       'about.title': 'About me',
       'about.bio': `<p>My name is Gabriel but my friends call me Gabo. I started programming since high school, I was 15 years old. Currently I am <strong>leading a development team for the creation of a Startup</strong>.</p><p>Some of my successes include <strong>collaborating with OpenPyme for the development of a server orchestrator and automate deployment and implementation tasks</strong>. Today it is operational and helps save up to 30% in time management.</p><p>As a Computer Engineer I keep myself in constant training and personal development as a professional, <strong>where I have a broad knowledge in <em class="italic">Web Development, Machine Learning, Data Analysis and Data Science</em></strong>. My goal is to improve every day, learning new tools and sharing that knowledge through blogs, conferences, workshops.</p>`,
       'footer.rights': 'Almost all rights reserved',
+      // Nuevas traducciones para AboutMe en inglés
+      'aboutMe.title': 'About Me',
+      'aboutMe.intro': 'My name is Gabriel but my friends call me Gabo. I started programming in high school when I was 15 years old. Currently, I am leading a development team for the creation of a Startup.',
+      'aboutMe.achievements': 'Achievements',
+      'aboutMe.achievement1': 'Collaborate with OpenPyme for the development of a server orchestrator and automate deployment and implementation tasks.',
+      'aboutMe.achievement2': 'Process optimization that helps save up to 30% in time management.',
+      'aboutMe.skills': 'Specialties',
+      'aboutMe.skill1': 'Web Development',
+      'aboutMe.skill2': 'Machine Learning',
+      'aboutMe.skill3': 'Data Analysis',
+      'aboutMe.skill4': 'Data Science',
+      'aboutMe.goals': 'Goals',
+      'aboutMe.goalsText': 'My goal is to improve every day, learning new tools and sharing that knowledge through blogs, conferences, workshops.',
       exp: [
         {
           'title': 'Aplication Suppoort L3',
@@ -146,7 +171,6 @@ export const languages = {
           tags: ["nextjs", "tailwindcss"],
         },
       ]
-
-    },
-
+    }
   } as const;
+
