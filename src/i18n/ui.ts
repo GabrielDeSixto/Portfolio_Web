@@ -36,36 +36,56 @@ export const languages = {
       'aboutMe.skill3': 'Análisis de datos',
       'aboutMe.skill4': 'Ciencia de Datos',
       'aboutMe.goals': 'Objetivos',
-      'aboutMe.goalsText': 'Mi objetivo es mejorar cada día, aprendiendo nuevas herramientas y compartir ese conocimiento mediante blogs, conferencias, talleres.',
+      'aboutMe.goalsText': 'Mi objetivo es mejorar cada día, aprendiendo nuevas herramientas y compartir ese conocimiento mediante blogs, conferencias, talleres. nota: Aun en proceso de traducción y contrucción.',
       exp: [
-        {
-          'title': 'Aplication Suppoort L3',
-          'date': 'Actualmente...',
-          'company': 'Stefanini Group',
-          'description': 'Responsable de dar soporte al sitema de inversiones del Banco Banamex en México. Realizando tareas de mantenimiento, soporte y desarrollo de funcionalidades en el sistema.',
-          'link': 'https://stefanini.com/es/latam/stefanini-mexico',
-          'linkLabel': 'Saber más',
 
-        },
         {
-          title: 'Freelancer',
-          date: 'Actualmente...',
-          company: 'HostWeb',
+          title: 'Co Fundador y Administrador de Startup',
+          date: 'Marzo 2025 - Actualmente...',
+          company: 'Code Web AI',
           description: 'Startup en fase piloto iniciada con un grupo de colegas en la cual, ofrecemos servicios de alojamiento y desarrollo de aplicaciones web en múltiples plataformas.',
           link: 'https://github.com/HostWeb-Inovation',
           linkLabel: 'Saber más',
         },
         {
+          'title': 'Full Stack Developer Jr',
+          'date': 'Febrero 2025 - Actualmente...',
+          'company': 'Ensamble Cloud',
+          'description': 'Desarrollo de chatbots de IA web y móviles para la opctimizacion de procesos de negocio.',
+          'link': 'https://panel.ensamblecloud.com/',
+          'linkLabel': 'Saber más',
+
+        },
+        {
+          'title': 'Application Support L3',
+          'date': ' Octubre 2024 - Actualmente...',
+          'company': 'Stefanini Group',
+          'description': 'Parte del equipo L3 en la banca patrimonial del Banco Banamex en México. Realizando tareas de mantenimiento, soporte, analisis y monitoreo.',
+          'link': 'https://stefanini.com/es/latam/stefanini-mexico',
+          'linkLabel': 'Saber más',
+
+        },
+        {
+          'title': 'Technical Support Specialist',
+          'date': 'Marzo 2024 - Septiembre 2024',
+          'company': 'Centro Escolar Presidente Fransico I. Madero',
+          'description': 'Responsable de dar soporte al sitema de inversiones del Banco Banamex en México. Realizando tareas de mantenimiento, soporte y desarrollo de funcionalidades en el sistema.',
+          'link': 'https://stefanini.com/es/latam/stefanini-mexico',
+          'linkLabel': 'Saber más',
+
+        },
+
+        {
           title: 'Software Engineer',
-          date: 'Enero 2023',
+          date: 'Enero 2023 - Enero 2024',
           company: 'OpenPyme',
           description: 'Responsable de la creación, planificación, desarrollo y documentación de módulos base, personalizados del software ERP Odoo. Mejora en un 30% en la administración de servidores que involucra la integración continua y despliegue de código con el software Rundeck.',
           link: 'https://openpyme.mx/',
           linkLabel: 'Saber más',
         },
         {
-          title: 'Dueño Cibercafe',
-          date: 'Diciembre 2021',
+          title: 'Dueño y Administrador de Cyber Café',
+          date: 'Marzo 2018 - Agosto 2021',
           company: 'Wifi-Vicente',
           description: 'Provisión de soporte técnico integral a equipos de cómputo y dispositivos móviles, abordando problemas de hardware o software para garantizar un funcionamiento continuo y eficiente.',
         },
@@ -80,11 +100,11 @@ export const languages = {
           tags: ["nextjs", "tailwindcss"],
         },
         {
-          title: "AdventJS - Retos de programación con JavaScript y TypeScript",
-          description: "Plataforma gratuita con retos de programación. Más de 1 millón de visitas en un mes. +50K retos completados. Creada desde cero con Next.js, React y Tailwind CSS.",
+          title: "Portafolio - Mi portafolio personal",
+          description: "Portafolio personal creado con Astro y Tailwind CSS. Contiene mis proyectos y experiencia laboral.",
           link: "https://adventjs.dev",
           image: "/projects/adventjs.webp",
-          tags: ["nextjs", "tailwindcss"],
+          tags: ["astro", "tailwindcss"],
         },
       ]
     },
@@ -131,7 +151,7 @@ export const languages = {
 
         },
         {
-          title: 'Freelancer',
+          title: 'Co-Founder and Administrator of Startup',
           date: 'Present...',
           company: "HostWeb",
           description: 'Startup in the pilot phase started with a group of colleagues in which we offer hosting services and web application development on multiple platforms.',
