@@ -8,6 +8,8 @@ import ProfileCheck from "@/components/icons/ProfileCheck.astro"
 import Projects from "@/components/Projects.astro"
 import SectionContainer from "@/components/SectionContainer.astro"
 import Hero from "@/components/Hero.astro"
+import TechWall from "@/components/TechWall.astro"
+import BottomCTA from "@/components/BottomCTA.astro"
 import Technologies from "@/components/Technologies.astro"
 import AnimatedEntry from "@/components/AnimatedEntry.astro"
 import { getLangFromUrl, useTranslations } from "@/i18n/utils"
@@ -26,6 +28,9 @@ const t:tLang = useTranslations(lang);
         <Hero />
       </AnimatedEntry>
     </SectionContainer>
+
+    <TechWall />
+
     <div class="space-y-24">
       <SectionContainer id="experiencia">
         <AnimatedEntry delay={0.1}>
@@ -74,5 +79,7 @@ const t:tLang = useTranslations(lang);
         </AnimatedEntry>
       </SectionContainer>
     </div>
+
+    <BottomCTA />
   </main>
 </Layout>

@@ -30,16 +30,16 @@ const navItems = [
 ---
 
 <header
-  class="fixed top-0 z-10 flex items-center justify-center w-full mx-auto mt-2"
+  class="fixed top-0 z-50 flex items-center justify-center w-full mx-auto mt-2 md:mt-4 px-2"
 >
   <nav
     id="header-nav"
-    class="flex px-4 py-2 text-sm font-medium rounded-full text-gray-700 dark:text-gray-200 justify-center items-center backdrop-blur-md bg-white/80 dark:bg-gray-800/80 border border-gray-200/20 dark:border-gray-700/30 shadow-lg transition-all duration-300"
+    class="flex px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium rounded-full text-zinc-700 dark:text-zinc-200 justify-start md:justify-center items-center backdrop-blur-md bg-zinc-50/80 dark:bg-zinc-900/80 border border-zinc-200/20 dark:border-zinc-800/30 shadow-lg transition-all duration-300 max-w-[95vw] overflow-x-auto hide-scrollbar"
   >
   {
     navItems.map((link) => (
       <a
-      class="relative block px-3 py-2 transition hover:text-indigo-500 dark:hover:text-indigo-400"
+      class="relative block px-2 md:px-3 py-2 transition hover:text-emerald-500 dark:hover:text-emerald-400 whitespace-nowrap shrink-0"
       aria-label={link.label}
       href={link.url}
       >
@@ -47,8 +47,10 @@ const navItems = [
       </a>
       ))
     }
-    <ThemeToggle />
-    <LanguagePicker />
+    <div class="flex items-center shrink-0 ml-1">
+      <ThemeToggle />
+      <LanguagePicker />
+    </div>
   </nav>
 </header>
 
@@ -58,9 +60,17 @@ const navItems = [
   }
   
   #header-nav.scrolled {
-    @apply bg-white/90 dark:bg-gray-900/90;
+    @apply bg-zinc-50/95 dark:bg-zinc-900/95;
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 </style>
 
@@ -88,9 +98,9 @@ const navItems = [
         if (entry.isIntersecting) {
           navItems.forEach(item => {
             if (item.getAttribute('aria-label') === entry.target.id) {
-              item.classList.add('text-indigo-500', 'dark:text-indigo-400');
+              item.classList.add('text-emerald-500', 'dark:text-emerald-400');
             } else {
-              item.classList.remove('text-indigo-500', 'dark:text-indigo-400');
+              item.classList.remove('text-emerald-500', 'dark:text-emerald-400');
             }
           });
         }

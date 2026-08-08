@@ -1,183 +1,77 @@
 ---
-const personalImageAlt = "Miguel Ángel"
-import Badge from "@/components/Badge.astro"
-import LinkedInIcon from "@/components/icons/LinkedIn.astro"
-import MailIcon from "@/components/icons/Mail.astro"
-import SocialPill from "@/components/SocialPill.astro"
-import Pdf from "@/components/icons/Pdf.astro"
-import { getLangFromUrl, useTranslations } from "@/i18n/utils"
-const lang = getLangFromUrl(Astro.url)
+const personalImageAlt = "Gabriel De Sixto";
+import Badge from "@/components/Badge.astro";
+import LinkedInIcon from "@/components/icons/LinkedIn.astro";
+import MailIcon from "@/components/icons/Mail.astro";
+import SocialPill from "@/components/SocialPill.astro";
+import Pdf from "@/components/icons/Pdf.astro";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<div class="max-w-xl">
-  <div class="flex gap-4 mb-6">
-    <img
-      class="rounded-full shadow-lg size-20 ring-2 ring-indigo-500/20 p-1"
-      src="/me.jpg"
-      alt={personalImageAlt}
-    />
+<div class="max-w-2xl relative z-10">
+  <div class="flex items-center gap-6 mb-8">
+    <div class="relative group shrink-0">
+      <div
+        class="absolute -inset-0.5 bg-emerald-500/20 rounded-full blur opacity-0 group-hover:opacity-100 transition duration-500"
+      >
+      </div>
+      <img
+        class="relative rounded-full w-20 h-20 md:w-24 md:h-24 ring-1 ring-black/10 dark:ring-white/10 p-1 object-cover grayscale group-hover:grayscale-0 transition duration-500 bg-white dark:bg-[#121212] shrink-0"
+        src="/me.jpg"
+        alt={personalImageAlt}
+      />
+    </div>
     <a
       href="https://github.com/GabrielDeSixto"
       target="_blank"
       rel="noopener"
-      class="flex items-center transition md:justify-center md:hover:scale-105"
+      class="flex items-center transition md:justify-center md:hover:scale-105 active:scale-95"
     >
-      <Badge>{t('hero.badge')}</Badge>
+      <Badge>{t("hero.badge")}</Badge>
     </a>
   </div>
+
   <h1
-    id="typing-title"
-    class="text-5xl font-bold tracking-tight text-gray-800 sm:text-6xl dark:text-white mb-2 typing-effect"
+    class="text-5xl font-bold tracking-tighter text-zinc-900 sm:text-7xl dark:text-zinc-50 mb-6 leading-[1.1]"
   >
-    {t('hero.title')}
+    {t("hero.title")}
   </h1>
-  <p
-    id="typing-bio"
-    class="mt-6 text-xl text-gray-800 dark:[&>strong]:text-indigo-300 [&>strong]:text-indigo-600 [&>strong]:font-semibold dark:text-gray-300 typing-effect"
-    data-content={t('hero.bio')}
+
+  <div
+    class="font-mono text-sm uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 mb-6 flex items-center gap-3"
   >
-  </p>
-  <nav class="flex flex-wrap gap-4 mt-8">
-    <SocialPill href="mailto:gabrielsolanodesixto@gmail.com" class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:shadow-indigo-500/50">
+    <span class="w-8 h-[1px] bg-emerald-600/50 dark:bg-emerald-400/50"></span>
+    System Online
+  </div>
+
+  <p
+    class="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-[55ch] [&>strong]:text-zinc-900 dark:[&>strong]:text-zinc-50 [&>strong]:font-medium"
+    set:html={t("hero.bio")}
+  />
+
+  <nav class="flex flex-wrap gap-4 mt-10">
+    <SocialPill
+      href="mailto:gabrielsolanodesixto@gmail.com"
+      class="bg-zinc-900 text-zinc-50 hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
+    >
       <MailIcon class="size-4" />
-      {t('hero.mail')}
+      {t("hero.mail")}
     </SocialPill>
-    <SocialPill href="https://www.linkedin.com/in/gabriel-solano-de-sixto/" class="bg-gradient-to-r from-blue-500 to-blue-700 text-white hover:shadow-blue-500/50">
+    <SocialPill
+      href="https://www.linkedin.com/in/gabriel-solano-de-sixto/"
+      class="bg-transparent border border-zinc-200 dark:border-zinc-800 hover:border-emerald-500 dark:hover:border-emerald-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+    >
       <LinkedInIcon class="size-4" />
-      {t('hero.linkedin')}
+      {t("hero.linkedin")}
     </SocialPill>
-    <SocialPill href="https://drive.google.com/file/d/1BWtoyHttQKXC6WyUFp6MUeUtr57306yt/view?usp=sharing" class="bg-gradient-to-r from-red-500 to-red-700 text-white hover:shadow-red-500/50">
+    <SocialPill
+      href="https://drive.google.com/file/d/1BWtoyHttQKXC6WyUFp6MUeUtr57306yt/view?usp=sharing"
+      class="bg-transparent border border-zinc-200 dark:border-zinc-800 hover:border-emerald-500 dark:hover:border-emerald-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+    >
       <Pdf class="size-4" />
-      {t('hero.cv')}
+      {t("hero.cv")}
     </SocialPill>
   </nav>
 </div>
-
-<style>
-  .typing-effect {
-    position: relative;
-  }
-  
-  .typing-effect::after {
-    content: "|";
-    position: absolute;
-    right: -8px;
-    width: 8px;
-    animation: cursor-blink 1s infinite step-end;
-  }
-  
-  @keyframes cursor-blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
-  
-  /* Hide cursor completely when typing is complete */
-  .typing-effect.typing-complete::after {
-    opacity: 0;
-    animation: none;
-  }
-</style>
-
-<script>
-  document.addEventListener('astro:page-load', () => {
-    // Function to create typing effect
-    function createTypingEffect(elementId, delay, speed = 50) {
-      const element = document.getElementById(elementId);
-      if (!element) return;
-      
-      let content = '';
-      
-      // For the bio text, we need to handle HTML content
-      if (elementId === 'typing-bio') {
-        content = element.getAttribute('data-content') || '';
-        element.innerHTML = '';
-        
-        // Create a temporary element to parse HTML
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = content;
-        
-        // Extract text nodes and elements to type them properly
-        const nodes = Array.from(tempDiv.childNodes);
-        let currentNodeIndex = 0;
-        let currentTextIndex = 0;
-        let currentNode = nodes[0];
-        let isInsideTag = false;
-        let currentTag = '';
-        
-        function typeHTML() {
-          if (currentNodeIndex >= nodes.length) {
-            element.classList.add('typing-complete');
-            return;
-          }
-          
-          if (currentNode.nodeType === Node.TEXT_NODE) {
-            // Text node - type character by character
-            if (currentTextIndex < currentNode.textContent.length) {
-              element.innerHTML += currentNode.textContent[currentTextIndex];
-              currentTextIndex++;
-              setTimeout(typeHTML, speed);
-            } else {
-              // Move to next node
-              currentNodeIndex++;
-              currentNode = nodes[currentNodeIndex];
-              currentTextIndex = 0;
-              setTimeout(typeHTML, speed);
-            }
-          } else if (currentNode.nodeType === Node.ELEMENT_NODE) {
-            // Element node - add the whole tag at once
-            if (currentNode.tagName.toLowerCase() === 'strong') {
-              element.innerHTML += `<strong>${currentNode.innerHTML}</strong>`;
-            } else {
-              element.innerHTML += currentNode.outerHTML;
-            }
-            // Move to next node
-            currentNodeIndex++;
-            currentNode = nodes[currentNodeIndex];
-            currentTextIndex = 0;
-            setTimeout(typeHTML, speed);
-          }
-        }
-        
-        // Start typing HTML content
-        setTimeout(typeHTML, delay);
-        return; // Exit early as we're handling HTML differently
-      } else {
-        content = element.textContent || '';
-        element.textContent = '';
-      }
-      
-      // Only run the effect if we have content to type
-      if (!content.trim()) return;
-      
-      // Make sure the element is visible
-      element.style.visibility = 'visible';
-      element.classList.add('typing-effect');
-      
-      let charIndex = 0;
-      
-      function typeText() {
-        if (charIndex < content.length) {
-          element.textContent += content.charAt(charIndex);
-          charIndex++;
-          setTimeout(typeText, speed);
-        } else {
-          element.classList.add('typing-complete');
-        }
-      }
-      
-      // Start typing effect with specified delay
-      setTimeout(typeText, delay);
-    }
-    
-    // Apply typing effect to title first
-    createTypingEffect('typing-title', 500, 100);
-    
-    // Then apply to bio with a delay so it starts after title is complete
-    const titleElement = document.getElementById('typing-title');
-    const titleText = titleElement ? (titleElement.textContent || '') : '';
-    const titleDelay = 500 + (titleText.length * 100) + 500; // Initial delay + title typing time + pause
-    
-    createTypingEffect('typing-bio', titleDelay, 30);
-  });
-</script>

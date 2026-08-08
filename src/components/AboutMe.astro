@@ -4,7 +4,7 @@ const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang);
 ---
 
-<section class="about-me-section">
+<section class="about-me-section group">
   <div class="about-me-container">
     <div class="about-me-header">
       <div class="profile-icon">
@@ -17,38 +17,12 @@ const t = useTranslations(lang);
     </div>
 
     <div class="about-me-content">
-      <p class="about-me-intro">
+      <p class="about-me-intro text-xl font-medium font-sans leading-relaxed text-zinc-800 dark:text-zinc-200">
         {t('aboutMe.intro')}
       </p>
-
-      <div class="achievements-section">
-        <h3 class="section-subtitle">{t('aboutMe.achievements')}</h3>
-        <ul class="achievements-list">
-          <li class="achievement-item">
-            <span class="achievement-bullet"></span>
-            <p>{t('aboutMe.achievement1')}</p>
-          </li>
-          <li class="achievement-item">
-            <span class="achievement-bullet"></span>
-            <p>{t('aboutMe.achievement2')}</p>
-          </li>
-        </ul>
-      </div>
-
-      <div class="skills-section">
-        <h3 class="section-subtitle">{t('aboutMe.skills')}</h3>
-        <div class="skills-container">
-          <div class="skill-pill">{t('aboutMe.skill1')}</div>
-          <div class="skill-pill">{t('aboutMe.skill2')}</div>
-          <div class="skill-pill">{t('aboutMe.skill3')}</div>
-          <div class="skill-pill">{t('aboutMe.skill4')}</div>
-        </div>
-      </div>
-
-      <div class="goals-section">
-        <h3 class="section-subtitle">{t('aboutMe.goals')}</h3>
-        <p class="goals-text">
-          {t('aboutMe.goalsText')}
+      <div class="mt-4 border-l-2 border-emerald-500 pl-4 py-1">
+        <p class="font-mono text-sm text-zinc-600 dark:text-zinc-400">
+          "Build fast. Design with taste. Leave no trace."
         </p>
       </div>
     </div>
@@ -62,12 +36,22 @@ const t = useTranslations(lang);
   }
 
   .about-me-container {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(244, 244, 245, 0.5); /* zinc-100 */
     border-radius: 1.5rem;
     padding: 2.5rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     backdrop-filter: blur(8px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  :global(.dark) .about-me-container {
+    background: rgba(39, 39, 42, 0.5); /* zinc-800 */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .about-me-section:hover .about-me-container {
+    border-color: rgba(16, 185, 129, 0.3); /* emerald-500 */
   }
 
   .about-me-header {
@@ -83,9 +67,21 @@ const t = useTranslations(lang);
     justify-content: center;
     width: 3rem;
     height: 3rem;
-    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    background: #18181b; /* zinc-900 */
+    border: 1px solid #3f3f46; /* zinc-700 */
     border-radius: 50%;
     color: white;
+    transition: all 0.3s ease;
+  }
+  
+  :global(.dark) .profile-icon {
+    background: #fafafa;
+    color: #18181b;
+  }
+
+  .about-me-section:hover .profile-icon {
+    border-color: #10b981;
+    color: #10b981;
   }
 
   .profile-icon svg {
@@ -96,12 +92,13 @@ const t = useTranslations(lang);
   .about-me-title {
     font-size: 2rem;
     font-weight: 700;
-    background: linear-gradient(90deg, #3b82f6, #2563eb);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
+    color: var(--color-text-primary);
     margin: 0;
+    transition: color 0.3s ease;
+  }
+
+  .about-me-section:hover .about-me-title {
+    color: #10b981;
   }
 
   .about-me-content {
@@ -113,74 +110,25 @@ const t = useTranslations(lang);
   .about-me-intro {
     font-size: 1.125rem;
     line-height: 1.7;
-    color: var(--color-text);
+    color: var(--color-text-secondary);
   }
 
-  .section-subtitle {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: #3b82f6;
-  }
-
-  .achievements-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .achievement-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-  }
-
-  .achievement-bullet {
-    flex-shrink: 0;
-    width: 0.75rem;
-    height: 0.75rem;
-    margin-top: 0.35rem;
-    background: linear-gradient(135deg, #3b82f6, #2563eb);
-    border-radius: 50%;
-  }
-
-  .skills-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-  }
-
-  .skill-pill {
-    padding: 0.5rem 1rem;
-    background: rgba(59, 130, 246, 0.1);
-    border: 1px solid rgba(59, 130, 246, 0.2);
-    border-radius: 9999px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: #3b82f6;
-    transition: all 0.3s ease;
-  }
-
-  .skill-pill:hover {
-    background: rgba(59, 130, 246, 0.2);
-    transform: translateY(-2px);
-  }
-
-  .goals-text {
+  .about-me-intro {
     font-size: 1.125rem;
     line-height: 1.7;
-    color: var(--color-text);
+    color: var(--color-text-secondary);
   }
 
   :root {
-    --color-text: #4b5563;
+    --color-text-primary: #18181b;
+    --color-text-secondary: #52525b;
+    --color-border: #e4e4e7;
   }
 
   :global(.dark) {
-    --color-text: #d1d5db;
+    --color-text-primary: #f4f4f5;
+    --color-text-secondary: #a1a1aa;
+    --color-border: #3f3f46;
   }
 
   @media (max-width: 768px) {

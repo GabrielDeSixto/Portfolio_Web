@@ -8,6 +8,8 @@ import ProfileCheck from "@/components/icons/ProfileCheck.astro"
 import Projects from "@/components/Projects.astro"
 import SectionContainer from "@/components/SectionContainer.astro"
 import Hero from "@/components/Hero.astro"
+import TechWall from "@/components/TechWall.astro"
+import BottomCTA from "@/components/BottomCTA.astro"
 import Technologies from "@/components/Technologies.astro"
 import { getLangFromUrl, useTranslations } from "@/i18n/utils"
 type tLang = (str: any) => any;
@@ -25,6 +27,9 @@ const t:tLang = useTranslations(lang);
       </slot>
     </Hero>
     </SectionContainer>
+    
+    <TechWall />
+
     <div class="space-y-24">
     <SectionContainer id="experiencia">
       <h2
@@ -67,5 +72,8 @@ const t:tLang = useTranslations(lang);
       <AboutMe />
     </SectionContainer>
   </div>
+  
+  <BottomCTA />
+  
   </main>
 </Layout>
