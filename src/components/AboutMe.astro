@@ -20,10 +20,29 @@ const t = useTranslations(lang);
       <p class="about-me-intro text-xl font-medium font-sans leading-relaxed text-zinc-800 dark:text-zinc-200">
         {t('aboutMe.intro')}
       </p>
-      <div class="mt-4 border-l-2 border-emerald-500 pl-4 py-1">
-        <p class="font-mono text-sm text-zinc-600 dark:text-zinc-400">
-          "Build fast. Design with taste. Leave no trace."
-        </p>
+
+      <div class="mt-6 grid gap-6 md:grid-cols-2">
+        <div>
+          <h3 class="text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-2">{t('aboutMe.achievements')}</h3>
+          <ul class="list-inside list-disc text-zinc-600 dark:text-zinc-400">
+            <li>{t('aboutMe.achievement1')}</li>
+            <li class="mt-2">{t('aboutMe.achievement2')}</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-2">{t('aboutMe.skills')}</h3>
+          <ul class="grid gap-2">
+            <li class="inline-block px-3 py-1 rounded-md bg-zinc-100 dark:bg-zinc-800 text-sm font-mono">{t('aboutMe.skill1')}</li>
+            <li class="inline-block px-3 py-1 rounded-md bg-zinc-100 dark:bg-zinc-800 text-sm font-mono">{t('aboutMe.skill2')}</li>
+            <li class="inline-block px-3 py-1 rounded-md bg-zinc-100 dark:bg-zinc-800 text-sm font-mono">{t('aboutMe.skill3')}</li>
+            <li class="inline-block px-3 py-1 rounded-md bg-zinc-100 dark:bg-zinc-800 text-sm font-mono">{t('aboutMe.skill4')}</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-6 border-l-2 border-emerald-500 pl-4 py-1">
+        <p class="text-sm text-zinc-600 dark:text-zinc-400">{t('aboutMe.goalsText')}</p>
       </div>
     </div>
   </div>

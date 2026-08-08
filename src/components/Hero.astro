@@ -39,12 +39,7 @@ const t = useTranslations(lang);
     {t("hero.title")}
   </h1>
 
-  <div
-    class="font-mono text-sm uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 mb-6 flex items-center gap-3"
-  >
-    <span class="w-8 h-[1px] bg-emerald-600/50 dark:bg-emerald-400/50"></span>
-    System Online
-  </div>
+  <!-- Removed small decorative strip to keep hero stack <= 4 text elements -->
 
   <p
     class="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-[55ch] [&>strong]:text-zinc-900 dark:[&>strong]:text-zinc-50 [&>strong]:font-medium"
