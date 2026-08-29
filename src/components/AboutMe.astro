@@ -6,16 +6,6 @@ const t = useTranslations(lang);
 
 <section class="about-me-section group">
   <div class="about-me-container">
-    <div class="about-me-header">
-      <div class="profile-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-          <circle cx="12" cy="7" r="4"></circle>
-        </svg>
-      </div>
-      <h2 class="about-me-title">{t('aboutMe.title')}</h2>
-    </div>
-
     <div class="about-me-content">
       <p class="about-me-intro text-xl font-medium font-sans leading-relaxed text-zinc-800 dark:text-zinc-200">
         {t('aboutMe.intro')}
@@ -51,103 +41,34 @@ const t = useTranslations(lang);
 <style>
   .about-me-section {
     width: 100%;
-    margin: 3rem 0;
   }
 
   .about-me-container {
-    background: rgba(244, 244, 245, 0.5); /* zinc-100 */
+    background: rgba(244, 244, 245, 0.5);
     border-radius: 1.5rem;
     padding: 2.5rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.02);
     border: 1px solid rgba(0, 0, 0, 0.05);
     backdrop-filter: blur(8px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: border-color 300ms ease;
   }
-  
+
   :global(.dark) .about-me-container {
-    background: rgba(39, 39, 42, 0.5); /* zinc-800 */
+    background: rgba(39, 39, 42, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
-  
+
   .about-me-section:hover .about-me-container {
-    border-color: rgba(16, 185, 129, 0.3); /* emerald-500 */
-  }
-
-  .about-me-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 2rem;
-    gap: 1rem;
-  }
-
-  .profile-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 3rem;
-    height: 3rem;
-    background: #18181b; /* zinc-900 */
-    border: 1px solid #3f3f46; /* zinc-700 */
-    border-radius: 50%;
-    color: white;
-    transition: all 0.3s ease;
-  }
-  
-  :global(.dark) .profile-icon {
-    background: #fafafa;
-    color: #18181b;
-  }
-
-  .about-me-section:hover .profile-icon {
-    border-color: #10b981;
-    color: #10b981;
-  }
-
-  .profile-icon svg {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-
-  .about-me-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--color-text-primary);
-    margin: 0;
-    transition: color 0.3s ease;
-  }
-
-  .about-me-section:hover .about-me-title {
-    color: #10b981;
+    border-color: rgba(16, 185, 129, 0.3);
   }
 
   .about-me-content {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   .about-me-intro {
-    font-size: 1.125rem;
     line-height: 1.7;
-    color: var(--color-text-secondary);
-  }
-
-  .about-me-intro {
-    font-size: 1.125rem;
-    line-height: 1.7;
-    color: var(--color-text-secondary);
-  }
-
-  :root {
-    --color-text-primary: #18181b;
-    --color-text-secondary: #52525b;
-    --color-border: #e4e4e7;
-  }
-
-  :global(.dark) {
-    --color-text-primary: #f4f4f5;
-    --color-text-secondary: #a1a1aa;
-    --color-border: #3f3f46;
   }
 
   @media (max-width: 768px) {

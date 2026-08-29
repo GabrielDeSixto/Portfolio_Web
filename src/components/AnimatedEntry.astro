@@ -24,13 +24,21 @@ const {
 </div>
 
 <style>
-  .animated-entry {
+  :global(html.js) .animated-entry {
     opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(html.js) .animated-entry {
+      opacity: 1;
+    }
   }
 </style>
 
 <script>
   document.addEventListener('astro:page-load', () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {

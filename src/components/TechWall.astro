@@ -1,34 +1,76 @@
 ---
-// TechWall.astro
-// Un carrusel estático o animado sutil de logos para dar "Social Proof" (credibilidad)
-// En diseño premium, se usa bajo el Hero con logos en monocromo / opacidad baja.
+import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
 
 const techs = [
-  { name: "TypeScript", icon: "tabler:brand-typescript" },
-  { name: "React", icon: "tabler:brand-react" },
-  { name: "Python", icon: "tabler:brand-python" },
-  { name: "Astro", icon: "tabler:brand-astro" },
-  { name: "Tailwind CSS", icon: "tabler:brand-tailwind" },
-  { name: "Node.js", icon: "tabler:brand-nodejs" },
-  { name: "AWS", icon: "tabler:brand-aws" },
-  { name: "Docker", icon: "tabler:brand-docker" }
-];
+  "TypeScript",
+  "React",
+  "Next.js",
+  "Node.js",
+  "NestJS",
+  "Python",
+  "FastAPI",
+  "PostgreSQL",
+  "MongoDB",
+  "Google Cloud",
+  "Rundeck",
+  "Tailwind CSS",
+]
 ---
 
-<section class="w-full py-8 md:py-12 border-y border-zinc-200/50 dark:border-zinc-800/50 bg-zinc-50/30 dark:bg-zinc-900/30 backdrop-blur-sm mb-16 md:mb-24">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <p class="text-center text-xs md:text-sm font-mono text-zinc-500 dark:text-zinc-400 mb-6 uppercase tracking-widest">
-      Trusted Technologies & Stack
-    </p>
-    <div class="flex flex-wrap justify-center items-center gap-x-8 gap-y-6 md:gap-x-12 opacity-60 hover:opacity-100 transition-opacity duration-500">
-      {
-        techs.map((tech) => (
-          <div class="flex items-center gap-2 text-zinc-600 dark:text-zinc-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-300">
-            {/* Si tienes una librería de iconos como astro-icon, podrías usarla. Como no sabemos si está instalada, usaremos texto con un estilo robusto para simular logos de marcas, o un diseño CSS */}
-            <span class="font-sans font-bold text-lg md:text-xl tracking-tight">{tech.name}</span>
-          </div>
-        ))
-      }
-    </div>
+<section class="w-full py-8 md:py-10 border-y border-zinc-200/70 dark:border-zinc-800/70 mb-16 md:mb-24">
+  <p class="text-center text-xs font-mono uppercase tracking-widest text-zinc-500 dark:text-zinc-400 mb-6">
+    {t('stack.title')}
+  </p>
+  <div class="marquee">
+    <ul class="marquee-track" aria-label={t('stack.title')}>
+      {techs.map((tech) => (
+        <li class="font-mono text-sm text-zinc-600 dark:text-zinc-400">{tech}</li>
+      ))}
+    </ul>
+    <ul class="marquee-track" aria-hidden="true">
+      {techs.map((tech) => (
+        <li class="font-mono text-sm text-zinc-600 dark:text-zinc-400">{tech}</li>
+      ))}
+    </ul>
   </div>
 </section>
+
+<style>
+  .marquee {
+    display: flex;
+    gap: 2.5rem;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+  }
+
+  .marquee-track {
+    display: flex;
+    flex-shrink: 0;
+    gap: 2.5rem;
+    padding-right: 2.5rem;
+    animation: marquee-scroll 45s linear infinite;
+  }
+
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee-scroll {
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee {
+      overflow-x: auto;
+    }
+
+    .marquee-track {
+      animation: none;
+    }
+  }
+</style>

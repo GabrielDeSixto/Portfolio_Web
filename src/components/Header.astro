@@ -24,7 +24,7 @@ const navItems = [
   {
     title: t('nav.contact'),
     label: "contacto",
-    url: "mailto:gabrielsolanodesixto@gmail.com",
+    url: currentLocale === 'en' ? '/en/#contacto' : '/#contacto',
   },
 ]
 ---
@@ -40,7 +40,7 @@ const navItems = [
     navItems.map((link) => (
       <a
       class="relative block px-2 md:px-3 py-2 transition hover:text-emerald-500 dark:hover:text-emerald-400 whitespace-nowrap shrink-0"
-      aria-label={link.label}
+      data-nav={link.label}
       href={link.url}
       >
       {link.title}
@@ -77,7 +77,7 @@ const navItems = [
 <script>
   document.addEventListener("astro:page-load", () => {
     const sections = document.querySelectorAll('section[data-section]');
-    const navItems = document.querySelectorAll('header nav a');
+    const navItems = document.querySelectorAll('header nav a[data-nav]');
     const headerNav = document.getElementById('header-nav');
 
     // Función para manejar el scroll y aplicar efectos
@@ -91,17 +91,17 @@ const navItems = [
 
     // Inicializar
     handleScroll();
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     const callback = (entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           navItems.forEach(item => {
-            if (item.getAttribute('aria-label') === entry.target.id) {
-              item.classList.add('text-emerald-500', 'dark:text-emerald-400');
-            } else {
-              item.classList.remove('text-emerald-500', 'dark:text-emerald-400');
-            }
+            const isCurrent = item.getAttribute('data-nav') === entry.target.id;
+            item.classList.toggle('text-emerald-600', isCurrent);
+            item.classList.toggle('dark:text-emerald-400', isCurrent);
+            if (isCurrent) item.setAttribute('aria-current', 'true');
+            else item.removeAttribute('aria-current');
           });
         }
       });

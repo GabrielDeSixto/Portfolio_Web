@@ -1,0 +1,42 @@
+---
+import Layout from "@/layouts/Layout.astro"
+import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+const isEnglish = lang === 'en'
+const copy = isEnglish
+  ? {
+      title: '404',
+      heading: 'This page does not exist',
+      text: 'The link may be outdated or mistyped. Everything else lives on the home page.',
+      action: 'Back to home',
+    }
+  : {
+      title: '404',
+      heading: 'Esta página no existe',
+      text: 'El enlace puede estar desactualizado o mal escrito. Todo lo demás está en la página principal.',
+      action: 'Volver al inicio',
+    }
+---
+
+<Layout title={`404 - ${t('layout.title')}`} description={copy.text}>
+  <main id="main-content" class="flex flex-1 items-center px-4 py-32">
+    <div class="container mx-auto lg:max-w-4xl md:max-w-2xl">
+      <p class="font-mono text-sm tracking-widest text-emerald-600 dark:text-emerald-400">
+        {copy.title}
+      </p>
+      <h1 class="mt-4 text-4xl md:text-6xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 text-balance">
+        {copy.heading}
+      </h1>
+      <p class="mt-5 max-w-[55ch] text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
+        {copy.text}
+      </p>
+      <a
+        href={isEnglish ? '/en' : '/'}
+        class="mt-10 inline-flex items-center rounded-full bg-zinc-900 px-6 py-3 text-base font-medium text-zinc-50 transition-all duration-300 hover:-translate-y-0.5 hover:bg-zinc-800 active:scale-95 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
+      >
+        {copy.action}
+      </a>
+    </div>
+  </main>
+</Layout>

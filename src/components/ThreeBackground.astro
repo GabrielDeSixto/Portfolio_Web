@@ -1,214 +1,237 @@
 ---
 ---
-<canvas id="three-canvas" class="fixed inset-0 z-[-1] pointer-events-none opacity-40 dark:opacity-20 transition-opacity duration-1000"></canvas>
+<canvas
+  id="three-canvas"
+  aria-hidden="true"
+  class="fixed inset-0 z-[-1] pointer-events-none opacity-[0.35] dark:opacity-25 transition-opacity duration-1000"
+></canvas>
 
 <script>
-  import * as THREE from 'three';
+  type Disposer = () => void
 
-  // Utilizamos astro:page-load para inicializar la escena cada vez que cambie la página con View Transitions
-  document.addEventListener('astro:page-load', () => {
-    const canvas = document.getElementById('three-canvas') as HTMLCanvasElement;
-    if (!canvas) return;
+  let teardown: Disposer | null = null
+  let sceneToken = 0
 
-    // Clean up de la instancia anterior si existe
-    if ((window as any).threeAnimationId) {
-      cancelAnimationFrame((window as any).threeAnimationId);
-    }
+  const prefersLightweight = () => {
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection
+    return Boolean(connection?.saveData)
+  }
 
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Limitar a 2x para rendimiento
-    renderer.setSize(window.innerWidth, window.innerHeight);
+  const initScene = async () => {
+    const canvas = document.getElementById('three-canvas') as HTMLCanvasElement | null
+    if (!canvas || prefersLightweight()) return
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 150;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (reduceMotion.matches) return
 
-    // Número de partículas adaptativo (menos en móvil para batería/rendimiento)
-    const isMobile = window.innerWidth < 768;
-    const particleCount = isMobile ? 80 : 150;
-    
-    // Nodos
-    const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(particleCount * 3);
-    const velocities: {x: number, y: number, z: number}[] = [];
+    const token = ++sceneToken
+    const THREE = await import('three')
+    if (token !== sceneToken) return
 
-    const bounds = 200;
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true })
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    renderer.setSize(window.innerWidth, window.innerHeight)
+
+    const scene = new THREE.Scene()
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000)
+    camera.position.z = 150
+
+    const isMobile = window.innerWidth < 768
+    const particleCount = isMobile ? 60 : 120
+    const bounds = 200
+
+    const geometry = new THREE.BufferGeometry()
+    const positions = new Float32Array(particleCount * 3)
+    const velocities: { x: number; y: number; z: number }[] = []
 
     for (let i = 0; i < particleCount; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * bounds * 2;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * bounds * 2;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * bounds * 2;
-      
+      positions[i * 3] = (Math.random() - 0.5) * bounds * 2
+      positions[i * 3 + 1] = (Math.random() - 0.5) * bounds * 2
+      positions[i * 3 + 2] = (Math.random() - 0.5) * bounds * 2
+
       velocities.push({
-        x: (Math.random() - 0.5) * 0.3,
-        y: (Math.random() - 0.5) * 0.3,
-        z: (Math.random() - 0.5) * 0.3
-      });
+        x: (Math.random() - 0.5) * 0.25,
+        y: (Math.random() - 0.5) * 0.25,
+        z: (Math.random() - 0.5) * 0.25,
+      })
     }
 
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
 
-    // Material de las partículas (Puntos)
     const material = new THREE.PointsMaterial({
-      color: 0x10b981, // Verde esmeralda
+      color: 0x10b981,
       size: isMobile ? 1.5 : 2,
       transparent: true,
-      opacity: 0.8
-    });
+      opacity: 0.7,
+    })
 
-    const particles = new THREE.Points(geometry, material);
-    scene.add(particles);
+    const particles = new THREE.Points(geometry, material)
+    scene.add(particles)
 
-    // Conexiones (Líneas)
     const lineMaterial = new THREE.LineBasicMaterial({
       color: 0x10b981,
       transparent: true,
-      opacity: 0.15
-    });
+      opacity: 0.12,
+    })
 
-    const maxLines = particleCount * 5;
-    const lineGeometry = new THREE.BufferGeometry();
-    const linePositions = new Float32Array(maxLines * 6);
-    lineGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
+    const maxLines = particleCount * 5
+    const lineGeometry = new THREE.BufferGeometry()
+    const linePositions = new Float32Array(maxLines * 6)
+    lineGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3))
 
-    const linesMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
-    scene.add(linesMesh);
+    const linesMesh = new THREE.LineSegments(lineGeometry, lineMaterial)
+    scene.add(linesMesh)
 
-    // "Fantasma" / "Virus" Core (Efecto Wow)
-    const ghostGeometry = new THREE.IcosahedronGeometry(15, 1);
-    const ghostMaterial = new THREE.MeshBasicMaterial({
-      color: 0x10b981,
-      wireframe: true,
-      transparent: true,
-      opacity: 0.6
-    });
-    const ghostInnerGeometry = new THREE.IcosahedronGeometry(8, 0);
-    const ghostInnerMaterial = new THREE.MeshBasicMaterial({
-      color: 0x10b981,
-      transparent: true,
-      opacity: 0.9
-    });
-    
-    const ghost = new THREE.Group();
-    ghost.add(new THREE.Mesh(ghostGeometry, ghostMaterial));
-    ghost.add(new THREE.Mesh(ghostInnerGeometry, ghostInnerMaterial));
-    scene.add(ghost);
+    let pointerX = 0
+    let pointerY = 0
+    let targetX = 0
+    let targetY = 0
+    let frameId = 0
+    let running = false
 
-    // Interacción con Mouse
-    let mouseX = 0;
-    let mouseY = 0;
-    let targetX = 0;
-    let targetY = 0;
+    const onPointerMove = (event: PointerEvent) => {
+      pointerX = event.clientX - window.innerWidth / 2
+      pointerY = event.clientY - window.innerHeight / 2
+    }
 
-    const windowHalfX = window.innerWidth / 2;
-    const windowHalfY = window.innerHeight / 2;
+    const connectDistanceSq = isMobile ? 2500 : 4000
 
-    const onDocumentMouseMove = (event: MouseEvent) => {
-      mouseX = (event.clientX - windowHalfX);
-      mouseY = (event.clientY - windowHalfY);
-    };
+    const step = (advance: boolean) => {
+      targetX = pointerX * 0.04
+      targetY = pointerY * 0.04
 
-    document.addEventListener('mousemove', onDocumentMouseMove);
+      if (advance) {
+        particles.rotation.y += 0.0008
+        particles.rotation.x += 0.0004
+      }
 
-    // Animación
-    const animate = () => {
-      (window as any).threeAnimationId = requestAnimationFrame(animate);
+      linesMesh.rotation.y = particles.rotation.y
+      linesMesh.rotation.x = particles.rotation.x
 
-      // Parallax suave
-      targetX = mouseX * 0.05;
-      targetY = mouseY * 0.05;
+      particles.position.x += (targetX - particles.position.x) * 0.05
+      particles.position.y += (-targetY - particles.position.y) * 0.05
+      linesMesh.position.x = particles.position.x
+      linesMesh.position.y = particles.position.y
 
-      particles.rotation.y += 0.001;
-      particles.rotation.x += 0.0005;
-      
-      linesMesh.rotation.y = particles.rotation.y;
-      linesMesh.rotation.x = particles.rotation.x;
-
-      particles.position.x += (targetX - particles.position.x) * 0.05;
-      particles.position.y += (-targetY - particles.position.y) * 0.05;
-      linesMesh.position.x = particles.position.x;
-      linesMesh.position.y = particles.position.y;
-
-      // Animación del Fantasma/Virus
-      const time = Date.now() * 0.001;
-      ghost.rotation.x += 0.005;
-      ghost.rotation.y += 0.01;
-      
-      // El fantasma persigue al ratón de forma más agresiva/flotante
-      ghost.position.x += (targetX * 2 - ghost.position.x) * 0.03;
-      ghost.position.y += (-targetY * 2 - ghost.position.y) * 0.03;
-      
-      // Añadir una flotación sinusoidal orgánica
-      ghost.position.y += Math.sin(time * 2) * 0.2;
-      ghost.position.x += Math.cos(time * 1.5) * 0.2;
-
-      // Actualizar posiciones y chequear distancias para dibujar líneas
-      const posAttribute = geometry.attributes.position;
-      let lineCount = 0;
-      
-      // Distancia mínima al cuadrado para conectar nodos
-      const connectDistanceSq = isMobile ? 2500 : 4000; 
+      const posAttribute = geometry.attributes.position
+      let lineCount = 0
 
       for (let i = 0; i < particleCount; i++) {
-        let x1 = posAttribute.getX(i);
-        let y1 = posAttribute.getY(i);
-        let z1 = posAttribute.getZ(i);
+        let x1 = posAttribute.getX(i)
+        let y1 = posAttribute.getY(i)
+        let z1 = posAttribute.getZ(i)
 
-        x1 += velocities[i].x;
-        y1 += velocities[i].y;
-        z1 += velocities[i].z;
+        if (advance) {
+          x1 += velocities[i].x
+          y1 += velocities[i].y
+          z1 += velocities[i].z
 
-        // Rebote en los bordes
-        if (Math.abs(x1) > bounds) velocities[i].x *= -1;
-        if (Math.abs(y1) > bounds) velocities[i].y *= -1;
-        if (Math.abs(z1) > bounds) velocities[i].z *= -1;
+          if (Math.abs(x1) > bounds) velocities[i].x *= -1
+          if (Math.abs(y1) > bounds) velocities[i].y *= -1
+          if (Math.abs(z1) > bounds) velocities[i].z *= -1
 
-        posAttribute.setXYZ(i, x1, y1, z1);
+          posAttribute.setXYZ(i, x1, y1, z1)
+        }
 
-        // Calcular conexiones
         for (let j = i + 1; j < particleCount; j++) {
-          let x2 = posAttribute.getX(j);
-          let y2 = posAttribute.getY(j);
-          let z2 = posAttribute.getZ(j);
+          if (lineCount >= maxLines) break
 
-          const distSq = (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) + (z1-z2)*(z1-z2);
+          const x2 = posAttribute.getX(j)
+          const y2 = posAttribute.getY(j)
+          const z2 = posAttribute.getZ(j)
 
-          if (distSq < connectDistanceSq) {
-            if (lineCount < maxLines) {
-              linePositions[lineCount * 6] = x1;
-              linePositions[lineCount * 6 + 1] = y1;
-              linePositions[lineCount * 6 + 2] = z1;
-              linePositions[lineCount * 6 + 3] = x2;
-              linePositions[lineCount * 6 + 4] = y2;
-              linePositions[lineCount * 6 + 5] = z2;
-              lineCount++;
-            }
-          }
+          const distSq = (x1 - x2) ** 2 + (y1 - y2) ** 2 + (z1 - z2) ** 2
+          if (distSq >= connectDistanceSq) continue
+
+          linePositions[lineCount * 6] = x1
+          linePositions[lineCount * 6 + 1] = y1
+          linePositions[lineCount * 6 + 2] = z1
+          linePositions[lineCount * 6 + 3] = x2
+          linePositions[lineCount * 6 + 4] = y2
+          linePositions[lineCount * 6 + 5] = z2
+          lineCount++
         }
       }
 
-      posAttribute.needsUpdate = true;
-      lineGeometry.setDrawRange(0, lineCount * 2);
-      lineGeometry.attributes.position.needsUpdate = true;
+      posAttribute.needsUpdate = true
+      lineGeometry.setDrawRange(0, lineCount * 2)
+      lineGeometry.attributes.position.needsUpdate = true
 
-      renderer.render(scene, camera);
-    };
+      renderer.render(scene, camera)
+    }
 
-    animate();
+    const animate = () => {
+      frameId = requestAnimationFrame(animate)
+      step(true)
+    }
 
-    // Redimensionamiento
+    const start = () => {
+      if (running || reduceMotion.matches) return
+      running = true
+      animate()
+    }
+
+    const stop = () => {
+      running = false
+      cancelAnimationFrame(frameId)
+    }
+
+    const onVisibilityChange = () => {
+      if (document.hidden) stop()
+      else start()
+    }
+
     const onWindowResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    };
+      camera.aspect = window.innerWidth / window.innerHeight
+      camera.updateProjectionMatrix()
+      renderer.setSize(window.innerWidth, window.innerHeight)
+      if (!running) step(false)
+    }
 
-    window.addEventListener('resize', onWindowResize);
+    const onMotionPreferenceChange = () => {
+      if (reduceMotion.matches) teardown?.()
+      else start()
+    }
 
-    // Cleanup extra si Astro cambia de página y destruye este canvas
-    document.addEventListener('astro:before-preparation', () => {
-      document.removeEventListener('mousemove', onDocumentMouseMove);
-      window.removeEventListener('resize', onWindowResize);
-    }, { once: true });
-  });
+    window.addEventListener('pointermove', onPointerMove, { passive: true })
+    window.addEventListener('resize', onWindowResize)
+    document.addEventListener('visibilitychange', onVisibilityChange)
+    reduceMotion.addEventListener('change', onMotionPreferenceChange)
+
+    step(false)
+    start()
+
+    teardown = () => {
+      stop()
+      window.removeEventListener('pointermove', onPointerMove)
+      window.removeEventListener('resize', onWindowResize)
+      document.removeEventListener('visibilitychange', onVisibilityChange)
+      reduceMotion.removeEventListener('change', onMotionPreferenceChange)
+      geometry.dispose()
+      lineGeometry.dispose()
+      material.dispose()
+      lineMaterial.dispose()
+      renderer.clear()
+      renderer.dispose()
+      teardown = null
+    }
+  }
+
+  const restart = () => {
+    teardown?.()
+    void initScene()
+  }
+
+  document.addEventListener('astro:page-load', restart)
+
+  document.addEventListener('astro:before-swap', () => {
+    sceneToken++
+    teardown?.()
+  })
+
+  window
+    .matchMedia('(prefers-reduced-motion: reduce)')
+    .addEventListener('change', (event) => {
+      if (!event.matches) restart()
+    })
 </script>

@@ -3,15 +3,18 @@ import "@fontsource/geist-sans"
 import "@fontsource/geist-mono"
 import Header from "../components/Header.astro"
 import Footer from "../components/Footer.astro"
-import FloatingContact from "../components/FloatingContact.astro"
 import ThreeBackground from "../components/ThreeBackground.astro"
 import { ViewTransitions } from "astro:transitions"
+import { getLangFromUrl, useTranslations } from "@/i18n/utils"
 interface Props {
   title: string
   description: string
 }
 const { description, title } = Astro.props
 const { currentLocale } = Astro
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+const ogImage = new URL("/og-image.jpg", Astro.site ?? Astro.url).href
 ---
 
 <!doctype html>
@@ -28,24 +31,32 @@ const { currentLocale } = Astro
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="/og-image.jpg" />
+    <meta property="og:image" content={ogImage} />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={Astro.url} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content="/og-image.jpg" />
+    <meta property="twitter:image" content={ogImage} />
     
     <title>{title}</title>
     <ViewTransitions />
+    <script is:inline>
+      document.documentElement.classList.add('js')
+    </script>
   </head>
   <body class="relative text-black dark:text-white bg-[#F9FAFB] dark:bg-[#121212] selection:bg-emerald-500/30 selection:text-emerald-900 dark:selection:text-emerald-50">
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-zinc-900 focus:px-4 focus:py-2 focus:text-sm focus:text-zinc-50 dark:focus:bg-zinc-50 dark:focus:text-zinc-900"
+    >
+      {t('skipLink')}
+    </a>
     <ThreeBackground />
     <Header />
     <slot />
     <Footer />
-    <FloatingContact />
     <style is:global>
       :root {
         color-scheme: light dark;
@@ -57,8 +68,13 @@ const { currentLocale } = Astro
       body {
         display: flex;
         flex-direction: column;
-        min-height: 100vh;
+        min-height: 100dvh;
         overscroll-behavior: none;
+      }
+      :where(a, button, [tabindex]):focus-visible {
+        outline: 2px solid #059669;
+        outline-offset: 3px;
+        border-radius: 4px;
       }
       @media (prefers-reduced-motion: reduce) {
         html {

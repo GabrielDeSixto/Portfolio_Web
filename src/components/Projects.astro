@@ -2,6 +2,9 @@
 import GitHub from "./icons/GitHub.astro"
 import NextJS from "./icons/NextJS.astro"
 import Tailwind from "./icons/Tailwind.astro"
+import Node from "./icons/Node.astro"
+import Python from "./icons/Python.astro"
+import Code from "./icons/Code.astro"
 import Link from "./icons/Link.astro"
 import LinkButton from "./LinkButton.astro"
 import { getLangFromUrl, useTranslations } from "@/i18n/utils"
@@ -10,27 +13,22 @@ const lang = getLangFromUrl(Astro.url)
 const t:tLang = useTranslations(lang);
 type TagType = {
   name: string;
-  class: string;
   icon: (_props: Record<string, any>) => any;
 };
 type TagsType = {
   [key: string]: TagType;
 };
 const TAGS: TagsType = {
-  nextjs: {
-    name: 'Next.js',
-    class: 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-900',
-    icon: NextJS,
-  },
-  tailwindcss: {
-    name: 'Tailwind CSS',
-    class: 'bg-[#06b6d4] text-white',
-    icon: Tailwind,
-  },
+  nextjs: { name: 'Next.js', icon: NextJS },
+  tailwindcss: { name: 'Tailwind CSS', icon: Tailwind },
+  nodejs: { name: 'Node.js', icon: Node },
+  nestjs: { name: 'NestJS', icon: Code },
+  python: { name: 'Python', icon: Python },
+  opencv: { name: 'OpenCV', icon: Code },
+  n8n: { name: 'n8n', icon: Code },
+  typescript: { name: 'TypeScript', icon: Code },
 };
 interface ProjectType {
-  image: string;
-  imageAlt: string;
   title: string;
   description: string;
   tags: string[];
@@ -40,66 +38,73 @@ interface ProjectType {
 const PROJECTS:ProjectType[] = t('projects');
 ---
 
-<div class="flex flex-col gap-y-24 mt-8">
+<ol class="mt-8 divide-y divide-zinc-200 border-y border-zinc-200 dark:divide-zinc-800 dark:border-zinc-800">
   {
-    PROJECTS.map(({ image, title, description, tags, link, github }, index) => {
-      const isFeatured = index === 0;
-      
-      return (
-      <article class={`group relative grid gap-8 lg:gap-12 items-center ${isFeatured ? 'md:grid-cols-1 mb-12' : 'md:grid-cols-2'}`}>
-        <div class={`relative w-full h-full overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800/50 ring-1 ring-black/5 dark:ring-white/10 ${isFeatured ? 'min-h-[400px] md:min-h-[500px]' : 'min-h-[300px]'} ${!isFeatured && index % 2 === 1 ? 'md:order-last' : ''}`}>
-          <div class="absolute inset-0 bg-emerald-500/10 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
-          <img 
-            alt={title} 
-            class="absolute inset-0 w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out" 
-            loading="lazy" 
-            src={image} 
-          />
-        </div>
-        
-        <div class={`flex flex-col justify-center gap-6 ${isFeatured ? 'md:items-center md:text-center max-w-3xl mx-auto' : ''}`}>
-          <div>
-            <h3 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 mb-4 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-              {title}
-            </h3>
-            
-            <ul class={`flex flex-wrap gap-2 mb-4 ${isFeatured ? 'md:justify-center' : ''}`}>
-              {tags.map((item) => {
-                const tag:TagType = TAGS[item];
-                if(tag) {
-                  return (
-                    <li>
-                      <span class={`flex items-center gap-x-1.5 px-3 py-1 rounded-md text-xs font-mono font-medium tracking-wide ${tag.class} ring-1 ring-black/5 dark:ring-white/10`}>
-                        <tag.icon class="size-3.5" />{tag.name}
-                      </span>
-                    </li>
-                  )
-                }
-              })}
-            </ul>
+    PROJECTS.map(({ title, description, tags, link, github }, index) => (
+      <li class="project-row group relative grid gap-x-8 gap-y-4 py-8 md:grid-cols-[auto_1fr_auto] md:items-start">
+        <span class="font-mono text-sm tabular-nums text-zinc-400 dark:text-zinc-600 md:pt-1">
+          {String(index + 1).padStart(2, '0')}
+        </span>
 
-            <p class="text-zinc-600 dark:text-zinc-400 leading-relaxed text-base">
-              {description}
-            </p>
-          </div>
-          
-          <footer class={`flex flex-wrap gap-4 mt-2 ${isFeatured ? 'md:justify-center' : ''}`}>
-            {github && (
-              <LinkButton href={github} class="flex items-center gap-2 px-4 py-2 bg-zinc-900 text-zinc-50 hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200 rounded-md text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 active:scale-95">
-                <GitHub class="size-4" />
-                <span>Code</span>
-              </LinkButton>
-            )}
-            {link && (
-              <LinkButton href={link} class="flex items-center gap-2 px-4 py-2 bg-transparent text-zinc-900 dark:text-zinc-50 ring-1 ring-zinc-200 dark:ring-zinc-800 hover:ring-emerald-500 dark:hover:ring-emerald-500 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-md text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 active:scale-95">
-                <Link class="size-4" />
-                <span>Live Demo</span>
-              </LinkButton>
-            )}
-          </footer>
+        <div class="max-w-[65ch]">
+          <h3 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
+            {title}
+          </h3>
+          <p class="mt-2 text-pretty leading-relaxed text-zinc-600 dark:text-zinc-400">
+            {description}
+          </p>
+          <ul class="mt-4 flex flex-wrap gap-x-4 gap-y-2">
+            {tags.map((item) => {
+              const tag:TagType = TAGS[item];
+              if (!tag) return null;
+              return (
+                <li class="flex items-center gap-x-1.5 font-mono text-xs text-zinc-500 dark:text-zinc-400">
+                  <tag.icon class="size-3.5" />{tag.name}
+                </li>
+              )
+            })}
+          </ul>
         </div>
-      </article>
-      )
-    })
+
+        <footer class="flex flex-wrap items-center gap-3 md:justify-end md:pt-1">
+          {github && (
+            <LinkButton href={github} class="gap-2">
+              <GitHub class="size-4" />
+              <span>{t('projects.code')}</span>
+            </LinkButton>
+          )}
+          {link && (
+            <LinkButton href={link} class="gap-2">
+              <Link class="size-4" />
+              <span>{t('projects.demo')}</span>
+            </LinkButton>
+          )}
+        </footer>
+      </li>
+    ))
   }
-</div>
+</ol>
+
+<style>
+  .project-row::before {
+    content: "";
+    position: absolute;
+    inset: 0 -1.5rem;
+    border-radius: 1rem;
+    background: rgb(16 185 129 / 0.06);
+    opacity: 0;
+    transition: opacity 300ms ease;
+    pointer-events: none;
+  }
+
+  .project-row:hover::before,
+  .project-row:focus-within::before {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project-row::before {
+      transition: none;
+    }
+  }
+</style>

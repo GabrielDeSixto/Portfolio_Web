@@ -1,43 +1,51 @@
 ---
-import LinkButton from "./LinkButton.astro"
 import MailIcon from "./icons/Mail.astro"
 import LinkedInIcon from "./icons/LinkedIn.astro"
 import GitHubIcon from "./icons/GitHub.astro"
 import { getLangFromUrl, useTranslations } from "@/i18n/utils"
 const lang = getLangFromUrl(Astro.url)
-// Assuming we have a translation, otherwise hardcoding for now
+const t = useTranslations(lang)
 ---
 
-<section class="w-full py-24 md:py-32 flex flex-col items-center justify-center text-center px-4 relative overflow-hidden">
-  {/* Fondo sutil / Glow para el CTA */}
-  <div class="absolute inset-0 z-[-1] flex items-center justify-center">
-    <div class="w-[30rem] h-[30rem] bg-emerald-500/10 dark:bg-emerald-500/5 rounded-full blur-[100px]"></div>
-  </div>
+<section id="contacto" data-section="contacto" class="w-full py-24 md:py-32 px-4 scroll-m-20">
+  <div class="container mx-auto lg:max-w-4xl md:max-w-2xl">
+    <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 text-balance">
+      {t('cta.title')}
+    </h2>
 
-  <h2 class="text-4xl md:text-6xl font-bold font-sans tracking-tight text-zinc-900 dark:text-zinc-50 mb-6">
-    Ready to build the <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-emerald-300">future?</span>
-  </h2>
-  
-  <p class="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 mb-10 max-w-2xl font-mono">
-    Let's turn your next big idea into reality. 
-    I'm available for freelance work and exciting opportunities.
-  </p>
+    <p class="mt-5 max-w-[55ch] text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
+      {t('cta.text')}
+    </p>
 
-  <div class="flex flex-col items-center gap-6">
-    <LinkButton href="mailto:gabrielsolanodesixto@gmail.com" class="text-lg px-8 py-4">
-      <MailIcon class="size-6 mr-2" />
-      Start a Project
-    </LinkButton>
-
-    <div class="flex gap-6 mt-4">
-      <a href="https://github.com/GabrielDeSixto" target="_blank" rel="noopener" class="text-zinc-500 hover:text-emerald-500 transition-colors transform hover:scale-110">
-        <GitHubIcon class="size-8" />
-        <span class="sr-only">GitHub</span>
+    <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5">
+      <a
+        href="mailto:gabrielsolanodesixto@gmail.com"
+        class="inline-flex items-center gap-3 rounded-full bg-zinc-900 px-6 py-3 text-base font-medium text-zinc-50 transition-all duration-300 hover:-translate-y-0.5 hover:bg-zinc-800 active:scale-95 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
+      >
+        <MailIcon class="size-5" />
+        {t('cta.action')}
       </a>
-      <a href="https://www.linkedin.com/in/gabriel-solano-de-sixto/" target="_blank" rel="noopener" class="text-zinc-500 hover:text-emerald-500 transition-colors transform hover:scale-110">
-        <LinkedInIcon class="size-8" />
-        <span class="sr-only">LinkedIn</span>
-      </a>
+
+      <div class="flex items-center gap-5">
+        <a
+          href="https://github.com/GabrielDeSixto"
+          target="_blank"
+          rel="noopener"
+          class="text-zinc-500 transition-colors hover:text-emerald-600 dark:hover:text-emerald-400"
+        >
+          <GitHubIcon class="size-6" />
+          <span class="sr-only">GitHub</span>
+        </a>
+        <a
+          href="https://www.linkedin.com/in/gabriel-solano-de-sixto/"
+          target="_blank"
+          rel="noopener"
+          class="text-zinc-500 transition-colors hover:text-emerald-600 dark:hover:text-emerald-400"
+        >
+          <LinkedInIcon class="size-6" />
+          <span class="sr-only">LinkedIn</span>
+        </a>
+      </div>
     </div>
   </div>
 </section>
